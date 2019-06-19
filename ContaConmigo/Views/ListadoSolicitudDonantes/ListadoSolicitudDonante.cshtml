@@ -88,9 +88,19 @@
         <td>
             @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
             @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
-            @*|@Html.ActionLink("Borrar", "Borrar", new { id=item.RequestDonorId })*@
+            @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id=item.RequestDonorId }, new { @class = "aElimina"})
         </td>
     </tr>
 }
 
 </table>
+@section scripts{
+    <script>
+        $(".aElimina").click(function (event) {
+            if (!confirm('Está seguro de eliminar la solicitud?')) {
+                event.preventDefault();
+            }
+        });    
+    </script>
+    }
+

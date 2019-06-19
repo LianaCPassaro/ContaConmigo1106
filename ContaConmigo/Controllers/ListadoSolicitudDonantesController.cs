@@ -123,5 +123,15 @@ namespace ContaConmigo.Controllers
                 return RedirectToAction("ListadoSolicitudDonante");
             }
         }
+        public ActionResult EliminarSolicitud(int id)
+        {
+            using (var db = new ContaConmigoContext())
+            {
+                RequestDonor reqdon = db.RequestDonors.Find(id);
+                db.RequestDonors.Remove(reqdon);
+                db.SaveChanges();
+                return RedirectToAction("ListadoSolicitudDonante");
+            }
+        }
     }
 }
