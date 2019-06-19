@@ -6,9 +6,13 @@ using System.Web.Mvc;
 
 namespace ContaConmigo.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : System.Web.Mvc.Controller
     {
         public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult ListadoSolicitudDonantes()
         {
             return View();
         }

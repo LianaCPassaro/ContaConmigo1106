@@ -1,0 +1,99 @@
+﻿@model ContaConmigo.Models.RequestDonor
+
+@{
+    ViewBag.Title = "Detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalle</h2>
+
+<div>
+    <h4>RequestDonor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCompleto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCompleto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZipCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstitutionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstitutionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Last_Date_Replacement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Last_Date_Replacement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmountDonor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AmountDonor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloodGroupId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloodGroupId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloodFactorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloodFactorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "EditarSolicitud", new { id = Model.RequestDonorId }) |
+    @Html.ActionLink("Volver al Listado", "ListadoSolicitudDonante")
+</p>

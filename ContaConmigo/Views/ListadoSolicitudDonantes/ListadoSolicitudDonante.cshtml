@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ContaConmigo.Models.RequestDonor>
+
+@{
+    ViewBag.Title = "Listado de Solicitudes de Donantes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Listado de Solicitudes de Donantes</h2>
+
+<p>
+    @Html.ActionLink("Crear Nueva Solicitud", "AgregarSolicitud")
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+
+            @Html.DisplayNameFor(model => model.NombreCompleto)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Last_Name_Request_Don)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.CityId)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Last_Date_Replacement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AmountDonor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstitutionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodGroupId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodFactorId)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone_Number)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreCompleto)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Last_Name_Request_Don)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.CityId)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ZipCode)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Last_Date_Replacement)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AmountDonor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InstitutionId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodGroupId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodFactorId)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone_Number)
+        </td>*@
+        <td>
+            @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
+            @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
+            @*|@Html.ActionLink("Borrar", "Borrar", new { id=item.RequestDonorId })*@
+        </td>
+    </tr>
+}
+
+</table>
