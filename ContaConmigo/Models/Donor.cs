@@ -18,7 +18,6 @@ namespace ContaConmigo.Models
         public string Name_Don { get; set; }
         public string Last_Name_Don { get; set; }
         public int CityId { get; set; }
-        public int ZipCode { get; set; }
         public Nullable<System.DateTime> Last_Date_Blood_Extract { get; set; }
         public int BloodGroupId { get; set; }
         public int BloodFactorId { get; set; }

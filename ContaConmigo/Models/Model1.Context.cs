@@ -13,10 +13,10 @@ namespace ContaConmigo.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ContaConmigoContext : DbContext
+    public partial class ContaConmigoEntities : DbContext
     {
-        public ContaConmigoContext()
-            : base("name=ContaConmigoContext")
+        public ContaConmigoEntities()
+            : base("name=ContaConmigoEntities")
         {
         }
     

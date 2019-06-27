@@ -11,47 +11,26 @@ namespace ContaConmigo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class RequestDonor
     {
         public int RequestDonorId { get; set; }
-        [Required]
-        [Display(Name = "Nombre")]
         public string Name_Request_Don { get; set; }
-        [Required]
-        [Display(Name = "Apellido")]
         public string Last_Name_Request_Don { get; set; }
-        [Required]
-        [Display(Name = "Teléfono")]
-        public string Phone_Number { get; set; }
-        [Required]
-        [Display(Name = "Ciudad")]
         public int CityId { get; set; }
-        [Required]
-        [Display(Name = "Código Postal")]
-        public int ZipCode { get; set; }
-        [Required]
-        [Display(Name = "Institución")]
-        public int InstitutionId { get; set; }
-        [Required]
-        [Display(Name = "Fecha Límite Recepción")]
         public System.DateTime Last_Date_Replacement { get; set; }
-        [Required]
-        [Display(Name = "Cant. Donantes Requeridos")]
         public int AmountDonor { get; set; }
-        [Required]
-        [Display(Name = "Grupo Sanguíneo")]
-        public int BloodGroupId { get; set; }
-        [Required]
-        [Display(Name = "Factor Sanguíneo")]
-        public int BloodFactorId { get; set; }
-        [Display(Name = "Comentarios")]
-        public string Comments { get; set; }
-                        
+        public int InstitutionId { get; set; }
+        public int GroupId { get; set; }
+        public int FactorId { get; set; }
+        public string Comment { get; set; }
+        public string Phone_Number { get; set; }
+        public System.DateTime Birthday { get; set; }
+        public Nullable<bool> Completed { get; set; }
+        public byte[] Photo { get; set; }
+    
         public virtual BloodFactor BloodFactor { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }
         public virtual City City { get; set; }
-        public virtual Institution Institution { get; set; }
     }
 }

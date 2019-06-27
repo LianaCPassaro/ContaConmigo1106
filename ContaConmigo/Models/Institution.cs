@@ -11,29 +11,15 @@ namespace ContaConmigo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Institution
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Institution()
-        {
-            this.RequestDonors = new HashSet<RequestDonor>();
-        }
-    
         public int InstitutionId { get; set; }
-        [Required]
-        [Display(Name = "Institución")]
         public string InstitutionDescription { get; set; }
-        [Required]
-        [Display(Name = "Dirección")]
         public string InstitutionAdress { get; set; }
         public string PhoneNumber { get; set; }
-        public int ZipCode { get; set; }
         public int CityId { get; set; }
     
         public virtual City City { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequestDonor> RequestDonors { get; set; }
     }
 }

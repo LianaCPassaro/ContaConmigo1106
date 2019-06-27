@@ -15,17 +15,14 @@ namespace ContaConmigo.Models
         [Display(Name = "Apellido")]
         public string Last_Name_Request_Don { get; set; }
         [Required]
-        [Display(Name = "Teléfono")]
-        public string Phone_Number { get; set; }
+        [Display(Name = "Fecha de Nacimiento")]
+        public string Birthday { get; set; }
         [Required]
         [Display(Name = "Ciudad")]
         public int CityId { get; set; }
         [Required]
-        [Display(Name = "Código Postal")]
-        public int ZipCode { get; set; }
-        [Required]
-        [Display(Name = "Institución")]
-        public int InstitutionId { get; set; }
+        [Display(Name = "Teléfono")]
+        public string Phone_Number { get; set; }
         [Required]
         [Display(Name = "Fecha Límite Recepción")]
         public System.DateTime Last_Date_Replacement { get; set; }
@@ -33,13 +30,18 @@ namespace ContaConmigo.Models
         [Display(Name = "Cant. Donantes Requeridos")]
         public int AmountDonor { get; set; }
         [Required]
+        [Display(Name = "Institución")]
+        public int InstitutionId { get; set; }
+        [Required]
         [Display(Name = "Grupo Sanguíneo")]
-        public int BloodGroupId { get; set; }
+        public int GroupId { get; set; }
         [Required]
         [Display(Name = "Factor Sanguíneo")]
-        public int BloodFactorId { get; set; }
+        public int FactorId { get; set; }
+        [Display(Name = "Foto")]
+        public int Photo { get; set; }
         [Display(Name = "Comentarios")]
-        public string Comments { get; set; }
+        public string Comment { get; set; }
     }
     [MetadataType(typeof(RequestDonorCE))]
 

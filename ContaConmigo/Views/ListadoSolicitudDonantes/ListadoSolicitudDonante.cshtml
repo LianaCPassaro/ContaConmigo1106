@@ -17,15 +17,16 @@
 
             @Html.DisplayNameFor(model => model.NombreCompleto)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Last_Name_Request_Don)
-        </th>*@
+
+        <th>
+
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.CityId)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </th>*@
+
         <th>
             @Html.DisplayNameFor(model => model.Last_Date_Replacement)
         </th>
@@ -36,17 +37,12 @@
             @Html.DisplayNameFor(model => model.InstitutionId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BloodGroupId)
+            @Html.DisplayNameFor(model => model.GroupId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BloodFactorId)
+            @Html.DisplayNameFor(model => model.FactorId)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Comments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone_Number)
-        </th>*@
+
         <th></th>
     </tr>
 
@@ -55,15 +51,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.NombreCompleto)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Last_Name_Request_Don)
-        </td>*@
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.CityId)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>*@
+
         <td>
             @Html.DisplayFor(modelItem => item.Last_Date_Replacement)
         </td>
@@ -74,21 +70,16 @@
             @Html.DisplayFor(modelItem => item.InstitutionId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BloodGroupId)
+            @Html.DisplayFor(modelItem => item.GroupId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BloodFactorId)
+            @Html.DisplayFor(modelItem => item.FactorId)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Comments)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone_Number)
-        </td>*@
+
         <td>
             @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
             @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
-            @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id=item.RequestDonorId }, new { @class = "aElimina"})
+            @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id = item.RequestDonorId }, new { @class = "aElimina" })
         </td>
     </tr>
 }

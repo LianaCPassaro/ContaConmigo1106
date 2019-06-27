@@ -12,7 +12,7 @@ namespace ContaConmigo.Controllers
         // GET: SolicitudDonante
         public ActionResult ListadoSolicitudDonante()
         {
-            ContaConmigoContext db = new ContaConmigoContext();
+            ContaConmigoEntities db = new ContaConmigoEntities();
             //db.RequestDonors.ToList();
             return View(db.RequestDonors.ToList());
         }
@@ -32,7 +32,7 @@ namespace ContaConmigo.Controllers
             }
             try
             {
-                using (ContaConmigoContext db = new ContaConmigoContext())
+                using (ContaConmigoEntities db = new ContaConmigoEntities())
                 {
                     db.RequestDonors.Add(a);
                     db.SaveChanges();
@@ -49,7 +49,7 @@ namespace ContaConmigo.Controllers
         {
             try
             {
-                using (var db = new ContaConmigoContext())
+                using (var db = new ContaConmigoEntities())
                 {
                     RequestDonor soldon = db.RequestDonors.Find(id);
                     return View(soldon);
@@ -69,7 +69,7 @@ namespace ContaConmigo.Controllers
 
             try
             {
-                using (var db = new ContaConmigoContext())
+                using (var db = new ContaConmigoEntities())
                 {
                     RequestDonor soldon = db.RequestDonors.Where(a=>a.RequestDonorId==id).FirstOrDefault();
                     //RequestDonor soldon1 = db.RequestDonors.Find(id);
@@ -90,7 +90,7 @@ namespace ContaConmigo.Controllers
         {
             try
             {
-                using (var db = new ContaConmigoContext())
+                using (var db = new ContaConmigoEntities())
                 {
                     RequestDonor reqdon = db.RequestDonors.Find(rd.RequestDonorId);
                     if (reqdon != null)
@@ -99,14 +99,16 @@ namespace ContaConmigo.Controllers
                         reqdon.Last_Name_Request_Don = rd.Last_Name_Request_Don;
                         reqdon.Phone_Number = rd.Phone_Number;
                         reqdon.CityId = rd.CityId;
-                        reqdon.ZipCode = rd.ZipCode;
-                        reqdon.InstitutionId = rd.InstitutionId;
-
-                        reqdon.AmountDonor = rd.AmountDonor;
                         reqdon.Last_Date_Replacement = rd.Last_Date_Replacement;
-                        reqdon.BloodGroupId = rd.BloodGroupId;
-                        reqdon.BloodFactorId = rd.BloodFactorId;
-                        reqdon.Comments = rd.Comments;
+                        reqdon.AmountDonor = rd.AmountDonor;
+                        reqdon.InstitutionId = rd.InstitutionId;
+                        reqdon.GroupId = rd.GroupId;
+                        reqdon.FactorId = rd.FactorId;
+                        reqdon.Comment = rd.Comment;
+                        reqdon.Phone_Number = rd.Phone_Number;
+                        reqdon.Birthday = rd.Birthday;
+                        reqdon.Completed = rd.Completed;
+                        reqdon.Photo = rd.Photo;
                         db.SaveChanges();
                         return RedirectToAction("ListadoSolicitudDonante");
                     }
@@ -125,7 +127,7 @@ namespace ContaConmigo.Controllers
         }
         public ActionResult EliminarSolicitud(int id)
         {
-            using (var db = new ContaConmigoContext())
+            using (var db = new ContaConmigoEntities())
             {
                 RequestDonor reqdon = db.RequestDonors.Find(id);
                 db.RequestDonors.Remove(reqdon);
