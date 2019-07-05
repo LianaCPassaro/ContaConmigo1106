@@ -1,0 +1,9 @@
+﻿@model IEnumerable<ContaConmigo.Models.City>
+
+<select class="form-control" id="Id" name="Ciudad">
+
+    @foreach (var item in Model)
+    {
+    <option value="@item.Id">@item.CityName</option>
+    }
+</select>

@@ -186,6 +186,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cascade.combo.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -246,6 +247,8 @@
     <Content Include="Views\ListadoSolicitudDonantes\AgregarSolicitud.cshtml" />
     <Content Include="Views\ListadoSolicitudDonantes\Detalle.cshtml" />
     <Content Include="Views\ListadoSolicitudDonantes\EditarSolicitud.cshtml" />
+    <Content Include="Views\ListadoSolicitudDonantes\CitiesList.cshtml" />
+    <Content Include="Views\ListadoSolicitudDonantes\ProvincesList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

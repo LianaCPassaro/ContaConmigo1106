@@ -64,6 +64,7 @@ namespace ContaConmigo.Controllers
             }
            
         }
+
         public ActionResult EditarSolicitud(int id)
         {
 
@@ -84,6 +85,24 @@ namespace ContaConmigo.Controllers
                 
                 
         }
+        public ActionResult ProvincesList()
+        {
+            using (var db = new ContaConmigoEntities())
+            {
+                return PartialView(db.Provinces.ToList());
+            }
+        }
+        public ActionResult CitiesList()
+        {
+            using (var db = new ContaConmigoEntities())
+            {
+                return PartialView(db.Cities.ToList());
+            }
+        }
+
+       
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarSolicitud(RequestDonor rd)
@@ -98,6 +117,7 @@ namespace ContaConmigo.Controllers
                         reqdon.Name_Request_Don = rd.Name_Request_Don;
                         reqdon.Last_Name_Request_Don = rd.Last_Name_Request_Don;
                         reqdon.Phone_Number = rd.Phone_Number;
+                        reqdon.ProvinceId = rd.ProvinceId;
                         reqdon.CityId = rd.CityId;
                         reqdon.Last_Date_Replacement = rd.Last_Date_Replacement;
                         reqdon.AmountDonor = rd.AmountDonor;

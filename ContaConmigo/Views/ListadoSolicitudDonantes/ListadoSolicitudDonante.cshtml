@@ -1,97 +1,109 @@
-﻿@model IEnumerable<ContaConmigo.Models.RequestDonor>
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="with-device-with" />
+    @model IEnumerable<ContaConmigo.Models.RequestDonor>
 
-@{
-    ViewBag.Title = "Listado de Solicitudes de Donantes";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Listado de Solicitudes de Donantes</h2>
-
-<p>
-    @Html.ActionLink("Crear Nueva Solicitud", "AgregarSolicitud")
-
-</p>
-<table class="table">
-    <tr>
-        <th>
-
-            @Html.DisplayNameFor(model => model.NombreCompleto)
-        </th>
-
-        <th>
-
-            @Html.DisplayNameFor(model => model.Birthday)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.CityId)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.Last_Date_Replacement)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmountDonor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InstitutionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GroupId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FactorId)
-        </th>
-
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreCompleto)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.CityId)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Last_Date_Replacement)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountDonor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InstitutionId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FactorId)
-        </td>
-
-        <td>
-            @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
-            @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
-            @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id = item.RequestDonorId }, new { @class = "aElimina" })
-        </td>
-    </tr>
-}
-
-</table>
-@section scripts{
-    <script>
-        $(".aElimina").click(function (event) {
-            if (!confirm('Está seguro de eliminar la solicitud?')) {
-                event.preventDefault();
-            }
-        });    
-    </script>
+    @{
+        ViewBag.Title = "Listado de Solicitudes de Donantes";
+        Layout = "~/Views/Shared/_Layout.cshtml";
     }
+ </head>
+<body>
 
+    <h2>Listado de Solicitudes de Donantes</h2>
+
+    <p>
+        @Html.ActionLink("Crear Nueva Solicitud", "AgregarSolicitud")
+
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+
+                @Html.DisplayNameFor(model => model.NombreCompleto)
+            </th>
+
+            <th>
+
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProvinceId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CityId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Last_Date_Replacement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmountDonor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstitutionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FactorId)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+
+                <td>
+                    @item.Birthday.ToShortDateString()
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CityId)
+                </td>
+
+                <td>
+                    @item.Last_Date_Replacement.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountDonor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstitutionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FactorId)
+                </td>
+
+                <td>
+                    @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
+                    @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
+                    @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id = item.RequestDonorId }, new { @class = "aElimina" })
+                </td>
+            </tr>
+        }
+
+    </table>
+    @section scripts{
+        <script>
+            $(".aElimina").click(function (event) {
+                if (!confirm('Está seguro de eliminar la solicitud?')) {
+                    event.preventDefault();
+                }
+            });
+        </script>
+    }
+</body> 
+</html>
