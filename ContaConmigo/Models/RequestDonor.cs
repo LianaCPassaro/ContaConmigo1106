@@ -17,7 +17,7 @@ namespace ContaConmigo.Models
         public int RequestDonorId { get; set; }
         public string Name_Request_Don { get; set; }
         public string Last_Name_Request_Don { get; set; }
-        public string ProvinceId { get; set; }
+        public int ProvinceId { get; set; }
         public int CityId { get; set; }
         public System.DateTime Last_Date_Replacement { get; set; }
         public int AmountDonor { get; set; }

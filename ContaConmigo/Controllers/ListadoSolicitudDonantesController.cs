@@ -19,7 +19,18 @@ namespace ContaConmigo.Controllers
         [HttpGet]
         public ActionResult AgregarSolicitud()
         {
+            ContaConmigoEntities db = new ContaConmigoEntities();
+            List<Province> ProvinceList = db.Provinces.ToList();
+            ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
             return View();
+        }
+
+        public JsonResult GetCityList(int ProvinceId)
+        {
+            ContaConmigoEntities db = new ContaConmigoEntities();
+            db.Configuration.ProxyCreationEnabled = false;
+            List<City> CityList = db.Cities.Where(x => x.ProvinceId == ProvinceId).ToList();
+            return Json(CityList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -32,7 +43,7 @@ namespace ContaConmigo.Controllers
             }
             try
             {
-                using (ContaConmigoEntities db = new ContaConmigoEntities())
+                using (var db = new ContaConmigoEntities())
                 {
                     db.RequestDonors.Add(a);
                     db.SaveChanges();
@@ -85,24 +96,7 @@ namespace ContaConmigo.Controllers
                 
                 
         }
-        public ActionResult ProvincesList()
-        {
-            using (var db = new ContaConmigoEntities())
-            {
-                return PartialView(db.Provinces.ToList());
-            }
-        }
-        public ActionResult CitiesList()
-        {
-            using (var db = new ContaConmigoEntities())
-            {
-                return PartialView(db.Cities.ToList());
-            }
-        }
-
-       
-
-
+         
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarSolicitud(RequestDonor rd)

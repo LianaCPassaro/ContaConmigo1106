@@ -26,7 +26,7 @@ namespace ContaConmigo.Models
         public string Phone_Number { get; set; }
         [Required]
         [Display(Name = "Provincia")]
-        public Selectlist  ProvinceId { get; set; }
+        public int ProvinceId { get; set; }
 
         [Required]
         [Display(Name = "Ciudad")]
