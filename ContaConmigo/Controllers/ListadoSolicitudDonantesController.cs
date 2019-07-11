@@ -103,7 +103,25 @@ namespace ContaConmigo.Controllers
                 
                 
         }
-         
+        public ActionResult SubirArchivo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SubirArchivo(HttpPostedFileBase file)
+        {
+            UploadFile modelo = new UploadFile();
+            if (file != null)
+            {
+                String ruta = Server.MapPath("~/Temp/");
+                ruta += file.FileName;
+                modelo.SubirArchivo(ruta, file);
+
+            }
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarSolicitud(RequestDonor rd)
