@@ -22,6 +22,13 @@ namespace ContaConmigo.Controllers
             ContaConmigoEntities db = new ContaConmigoEntities();
             List<Province> ProvinceList = db.Provinces.ToList();
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
+            List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
+            ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
+            List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
+            ViewBag.BloodGroupList = new SelectList(BloodFactorList, "BloodGroupId", "Blood_Group");
+            List<Institution> InstitutionList = db.Institutions.ToList();
+            ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
+
             return View();
         }
 
