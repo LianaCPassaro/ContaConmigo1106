@@ -10,9 +10,8 @@ namespace ContaConmigo.Models
     {
         [Required]
         [StringLength(50, ErrorMessage = "El {0} debe contener al menos {2} caracteres.", MinimumLength = 3)]
-        [Display(Name = "Nombres")]
+        [Display(Name = "Nombre")]
         public string Name_Request_Don { get; set; }
-
         [Required]
         [StringLength(50, ErrorMessage = "El {0} debe contener al menos {2} caracteres.", MinimumLength = 3)]
         [Display(Name = "Apellido")]
@@ -20,14 +19,13 @@ namespace ContaConmigo.Models
         [Required]
         [Display(Name = "Fecha de Nacimiento")]
         [DataType(DataType.Date)]
-        public string Birthday { get; set; }
+        public System.DateTime Birthday { get; set; }
         [Required]
         [Display(Name = "Teléfono")]
         public string Phone_Number { get; set; }
         [Required]
         [Display(Name = "Provincia")]
         public int ProvinceId { get; set; }
-
         [Required]
         [Display(Name = "Ciudad")]
         public int CityId { get; set; }
@@ -50,7 +48,7 @@ namespace ContaConmigo.Models
         public int FactorId { get; set; }
 
         [Display(Name = "Foto")]
-        public int Photo { get; set; }
+        public byte[] Photo { get; set; }
         [Display(Name = "Comentarios")]
         public string Comment { get; set; }
     }
@@ -62,6 +60,5 @@ namespace ContaConmigo.Models
     [Required]
     [Display(Name = "Nombre Completo")]
     public string NombreCompleto { get { return Last_Name_Request_Don + ", " + Name_Request_Don; } }
-
     }
 }

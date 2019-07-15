@@ -15,8 +15,7 @@ namespace ContaConmigo.Models
     
     public partial class ContaConmigoEntities : DbContext
     {
-        public ContaConmigoEntities()
-            : base("name=ContaConmigoEntities")
+        public ContaConmigoEntities() : base("name=ContaConmigoEntities")
         {
         }
     
