@@ -63,15 +63,5 @@ namespace ContaConmigo.Models
     [Display(Name = "Nombre Completo")]
     public string NombreCompleto { get { return Last_Name_Request_Don + ", " + Name_Request_Don; } }
 
-        //[Required]
-        //[Display(Name = "Provincia")]
-        //public string ProvincesList
-        //{
-        //    get
-        //    {
-        //        List<Province> provinces = new List<Province>();
-        //        return Provi
-        //    }
-        //}
     }
 }

@@ -34,5 +34,6 @@ namespace ContaConmigo.Models
         public virtual BloodGroup BloodGroup { get; set; }
         public virtual City City { get; set; }
         public virtual Province Province{ get; set; }
+        public virtual Institution Institution { get; set; }
     }
 }

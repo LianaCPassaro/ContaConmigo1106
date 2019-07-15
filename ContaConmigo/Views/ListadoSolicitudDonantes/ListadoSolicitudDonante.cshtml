@@ -12,7 +12,7 @@
  </head>
 <body>
 
-    <h2>Listado de Solicitudes de Donantes</h2>
+    <h2>Listado de Solicitudes de Donantes</h2> 
 
     <p>
         @Html.ActionLink("Crear Nueva Solicitud", "AgregarSolicitud")
@@ -58,41 +58,45 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombreCompleto)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompleto)
+            </td>
 
-                <td>
-                    @item.Birthday.ToShortDateString()
-                </td>
+            <td>
+                @item.Birthday.ToShortDateString()
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.CityId)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProvinceId)
+            </td>
 
-                <td>
-                    @item.Last_Date_Replacement.ToShortDateString()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AmountDonor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InstitutionId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GroupId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FactorId)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityId)
+            </td>
 
-                <td>
-                    @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
-                    @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
-                    @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id = item.RequestDonorId }, new { @class = "aElimina" })
-                </td>
-            </tr>
+            <td>
+                @item.Last_Date_Replacement.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountDonor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstitutionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FactorId)
+            </td>
+
+            <td>
+                @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
+                @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
+                @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id = item.RequestDonorId }, new { @class = "aElimina" })
+            </td>
+        </tr>
         }
 
     </table>

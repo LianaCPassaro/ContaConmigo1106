@@ -1,6 +1,7 @@
 ﻿using ContaConmigo.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,10 +23,13 @@ namespace ContaConmigo.Controllers
             ContaConmigoEntities db = new ContaConmigoEntities();
             List<Province> ProvinceList = db.Provinces.ToList();
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
+
             List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
             ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
+
             List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
-            ViewBag.BloodGroupList = new SelectList(BloodFactorList, "BloodGroupId", "Blood_Group");
+            ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
+
             List<Institution> InstitutionList = db.Institutions.ToList();
             ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
 
@@ -91,7 +95,20 @@ namespace ContaConmigo.Controllers
                 using (var db = new ContaConmigoEntities())
                 {
                     RequestDonor soldon = db.RequestDonors.Where(a=>a.RequestDonorId==id).FirstOrDefault();
-                    //RequestDonor soldon1 = db.RequestDonors.Find(id);
+
+                    List<Province> ProvinceList = db.Provinces.ToList();
+                    ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
+                    List<City> CityList = db.Cities.ToList();
+                    ViewBag.CityList = new SelectList(CityList, "CityId", "CityName");
+
+                    List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
+                    ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
+
+                    List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
+                    ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
+
+                    List<Institution> InstitutionList = db.Institutions.ToList();
+                    ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
                     return View(soldon);
                 }
             }
@@ -107,20 +124,53 @@ namespace ContaConmigo.Controllers
         {
             return View();
         }
-
         [HttpPost]
-        public ActionResult SubirArchivo(HttpPostedFileBase file)
+        public ActionResult UploadFiles()
         {
-            UploadFile modelo = new UploadFile();
-            if (file != null)
+            // Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
             {
-                String ruta = Server.MapPath("~/Temp/");
-                ruta += file.FileName;
-                modelo.SubirArchivo(ruta, file);
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
 
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/Temp/"), fname);
+                        file.SaveAs(fname);
+                    }
+                    // Returns message that successfully uploaded  
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
             }
-            return View();
+            else
+            {
+                return Json("No files selected.");
+            }
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

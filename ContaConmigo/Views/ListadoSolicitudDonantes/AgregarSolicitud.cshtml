@@ -1,6 +1,5 @@
 ﻿@model ContaConmigo.Models.RequestDonor
 
-
 @{
     /**/
 
@@ -15,74 +14,103 @@
 {
     @Html.AntiForgeryToken() // evita que otro formulario ingrese a este mètodo, es por seguridad
 
-<div class="form-horizontal">
-    <h4>Por favor, completa el siguiente formulario:</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Por favor, completa el siguiente formulario:</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name_Request_Don, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name_Request_Don, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name_Request_Don, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name_Request_Don, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name_Request_Don, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name_Request_Don, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Last_Name_Request_Don, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Last_Name_Request_Don, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Last_Name_Request_Don, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Last_Date_Replacement, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Last_Date_Replacement, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Last_Date_Replacement, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AmountDonor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AmountDonor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AmountDonor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InstitutionId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.InstitutionId, ViewBag.InstitutionList as SelectList, "--Institución--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InstitutionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GroupId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GroupId, ViewBag.BloodGroupList as SelectList, "--Grupo--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FactorId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FactorId, ViewBag.BloodFactorList as SelectList, "--Factor--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FactorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="FileUpload1" />
+                <input type="button" id="btnUpload" value="Subir Archivo" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Last_Name_Request_Don, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Last_Name_Request_Don, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Last_Name_Request_Don, "", new { @class = "text-danger" })
+    <div class="container">
+        <div class="form-group">
+            @if (ViewBag.ProvinceList != null)
+            {
+                @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Select Province--", new { @class = "form-control" })
+            }
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Last_Date_Replacement, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Last_Date_Replacement, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Last_Date_Replacement, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.AmountDonor, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AmountDonor, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AmountDonor, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.InstitutionId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*@Html.EditorFor(model => model.InstitutionId, new { htmlAttributes = new { @class = "form-control" } })*@
-            @Html.DropDownListFor(model => model.InstitutionId, ViewBag.InstitutionList as SelectList, "--Institución--", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.InstitutionId, "Institución", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.GroupId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*@Html.EditorFor(model => model.GroupId, new { htmlAttributes = new { @class = "form-control" } })*@
-            @Html.DropDownListFor(model => model.GroupId, ViewBag.BloodGroupList as SelectList, "--Grupo--", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.GroupId, "--Grupo--", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.FactorId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.FactorId, ViewBag.BloodFactorList as SelectList, "--Factor--", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.FactorId, "--Factor--", new { @class = "text-danger" })
+        <div class="form-group">
+           @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "--Select City--", new { @class = "form-control" })
         </div>
     </div>
 
@@ -95,52 +123,12 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Photo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <h2 class="text-danger">@ViewBag.Error</h2>
-            <h2 class="text-success">@ViewBag.Correcto</h2>
-            <form method="post" enctype="multipart/form-data">
-                <input type="File" name="File" />
-                <button type="submit">Subir</button>
-            </form>
-        </div>
-    </div>
-    </div>
-    <div class="container">
-        <div class="form-group">
-            @if (ViewBag.ProvinceList != null)
-            {
-                @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Select Province--", new { @class = "form-control" })
-            }
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "--Select City--", new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Crear" class="btn btn-default" />
         </div>
     </div>
-</div>
+
+
 
     <p>
         @Html.ActionLink("Volver", "ListadoSolicitudDonante")
@@ -151,9 +139,9 @@
 @section Scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
-    @*<script defer src="~/Scripts/cascade.combo.js"></script>*@
+
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+
     <script>
         $(document).ready(function () {
             $("#ProvinceId").change(function () {
@@ -164,6 +152,47 @@
                     });
                 });
             })
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnUpload').click(function () {
+
+                // Checking whether FormData is available in browser
+                if (window.FormData !== undefined) {
+
+                    var fileUpload = $("#FileUpload1").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    // Adding one more key to FormData object
+                    fileData.append('username', ‘Manas’);
+
+                    $.ajax({
+                        url: '/ListadoSolicitudDonantes/Temp',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+                            alert(result);
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
+            });
         });
     </script>
 }
