@@ -57,6 +57,7 @@ namespace ContaConmigo.Controllers
                 using (var db = new ContaConmigoEntities())
                 {
                     db.RequestDonors.Add(a);
+                    
                     db.SaveChanges();
                     return RedirectToAction("ListadoSolicitudDonante");
                 }
