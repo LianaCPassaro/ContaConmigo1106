@@ -167,15 +167,15 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-=======
+        <<<<<<< HEAD
+        =======
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Completed, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-           @* @Html.CheckBox(model => model.Completed, new { htmlAttributes = new { @class = "form-control" } })*@
+            @* @Html.CheckBox(model => model.Completed, new { htmlAttributes = new { @class = "form-control" } })*@
             @Html.ValidationMessageFor(model => model.Completed, "", new { @class = "text-danger" })
->>>>>>> 751a2f338d34fe88991566d835dbdcb9d40e2209
+            >>>>>>> 751a2f338d34fe88991566d835dbdcb9d40e2209
         </div>
 
         <div class="form-group">
@@ -185,11 +185,10 @@
             </div>
         </div>
     </div>
+</div>
         }
 
-        <div>
-            @Html.ActionLink("Volver", "ListadoSolicitudDonante")
-        </div>
+
 
         @section Scripts
 {
@@ -229,10 +228,10 @@
                             }
 
                             // Adding one more key to FormData object
-                            fileData.append('username', ‘Manas’);
+                            fileData.append('username', 'Manas');
 
                             $.ajax({
-                                url: '/ListadoSolicitudDonantes/Temp',
+                                url: '/Temp',
                                 type: "POST",
                                 contentType: false, // Not to set any content header
                                 processData: false, // Not to process data
