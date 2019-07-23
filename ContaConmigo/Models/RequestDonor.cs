@@ -29,11 +29,14 @@ namespace ContaConmigo.Models
         public System.DateTime Birthday { get; set; }
         public Nullable<bool> Completed { get; set; }
         public byte[] Photo { get; set; }
-    
+        public List<Institution> Institutions { get; set; }
+        public List<City> Cities { get; set; }
+
         public virtual BloodFactor BloodFactor { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }
         public virtual City City { get; set; }
         public virtual Province Province{ get; set; }
         public virtual Institution Institution { get; set; }
+       
     }
 }

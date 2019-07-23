@@ -32,7 +32,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CityId)
+            @Html.DisplayFor(model => model.Institution.InstitutionDescription)
         </dd>
 
         <dt>
@@ -50,7 +50,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.InstitutionId)
+            @*@Html.DisplayFor(model => model.InstitutionId)*@
+            @Html.DropDownListFor(model => model.Institution.InstitutionDescription, ViewBag.InstitutionList as SelectList, "--Institución--", new { @class = "form-control" })
         </dd>
 
         <dt>
