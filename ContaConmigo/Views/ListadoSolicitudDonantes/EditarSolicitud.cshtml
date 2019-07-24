@@ -63,6 +63,26 @@
         </div>
 
         <div class="row">
+            <div class="container">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (ViewBag.ProvinceList != null)
+                        {
+                            @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, new { @class = "form-control" })
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     @Html.LabelFor(model => model.InstitutionId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -75,35 +95,17 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <input type="file" id="FileUpload1" />
-                        <p><input type="button" id="btnUpload" class="btn btn-primary" value="Subir" /></p>
-                    </div>
-                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="file" id="FileUpload1" />
+                            <p><input type="button" id="btnUpload" class="btn btn-primary" value="Subir" /></p>
+                        </div>
+                    </div>*@
             </div>
         </div>
 
-        <div class="row">
-            <div class="container">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @if (ViewBag.ProvinceList != null)
-                        {
-                            @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Provincia--", new { @class = "form-control" })
-                        }
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "--Ciudad--", new { @class = "form-control" })
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div class="row">
             <div class="col-md-6">
