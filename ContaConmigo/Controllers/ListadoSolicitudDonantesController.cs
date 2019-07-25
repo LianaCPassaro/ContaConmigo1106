@@ -10,6 +10,7 @@ namespace ContaConmigo.Controllers
 {
     public class ListadoSolicitudDonantesController : System.Web.Mvc.Controller
     {
+ 
         // GET: SolicitudDonante
         public ActionResult ListadoSolicitudDonante()
         {
@@ -98,9 +99,12 @@ namespace ContaConmigo.Controllers
                     RequestDonor soldon = db.RequestDonors.Where(a=>a.RequestDonorId==id).FirstOrDefault();
 
                     List<Province> ProvinceList = db.Provinces.ToList();
-                    ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
+                    ViewBag.ProvinceList = new SelectList(ProvinceList,"ProvinceId","ProvinceDescription",soldon.ProvinceId);
+                    //ViewBag.ProvinceList = soldon.ProvinceId;
+
                     List<City> CityList = db.Cities.ToList();
                     ViewBag.CityList = new SelectList(CityList, "CityId", "CityName");
+                    //ViewBag.CityList= soldon.CityId;
 
                     List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
                     ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");

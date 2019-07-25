@@ -68,11 +68,18 @@
                     <div class="form-group">
                         @if (ViewBag.ProvinceList != null)
                         {
-                            @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, new { @class = "form-control" })
-                        }
-                    </div>
-                </div>
+                            @*<select asp-for ="SelectedProvince" asp-items="#{new SelectList{model.Provinces,"ProvinceId","ProvinceDescription"}}">
+            <option value="">None</option>
+            </select>*@
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </div>
+                            <div class="editor-field">
+                                @Html.DropDownList("ProvinceId")
+                            </div>
+                          }
+                            
+                        </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -193,7 +200,8 @@
     <script>
         $(document).ready(function () {
             $("#ProvinceId").change(function () {
-                $.get("/ListadoSolicitudDonantes/GetCityList", { ProvinceId: $("#ProvinceId").val() }, function (data) {
+                //agregue el provinceid
+                $.get("/ListadoSolicitudDonantes/GetCityList", { ProvinceId: $("#ProvinceId").val(ProvinceId) }, function (data) {
                     //$("#CityId").empty();
                     $.each(data, function (index, row) {
                         $("#CityId").append("<option value='" + row.CityId + "'>" + row.CityName + "</option>")
