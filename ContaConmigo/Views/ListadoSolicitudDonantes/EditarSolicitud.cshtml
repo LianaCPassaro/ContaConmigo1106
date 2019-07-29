@@ -9,10 +9,9 @@
 
 <h2>Editar Solicitud</h2>
 
-
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
+
 
     <div class="form-horizontal">
         <h4>Modifique los valores ingresados y luego presione el botón Guardar</h4>
@@ -46,6 +45,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
+
                         @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
                     </div>
@@ -68,22 +68,23 @@
                     <div class="form-group">
                         @if (ViewBag.ProvinceList != null)
                         {
-                            @*<select asp-for ="SelectedProvince" asp-items="#{new SelectList{model.Provinces,"ProvinceId","ProvinceDescription"}}">
-            <option value="">None</option>
-            </select>*@
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
-                            </div>
-                            <div class="editor-field">
-                                @Html.DropDownList("ProvinceId")
-                            </div>
-                          }
+                            @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, new { @class = "form-control" })
                             
-                        </div>
+
+                            <div class="col-md-8">
+                                @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
+                            </div>
+                        }
+                    </div>
+                </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "", new { @class = "form-control" })
+                        <div class="col-md-8">
+                            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,9 +95,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.InstitutionId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-
-
-                        @Html.DropDownListFor(model => model.InstitutionId, ViewBag.InstitutionList as SelectList, "--Institución--", new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.InstitutionId, ViewBag.InstitutionList as SelectList, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.InstitutionId, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -170,10 +169,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Completed, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @*@Html.CheckBoxFor(model => model.Completed, new { htmlAttributes = new { @class = "form-control" } })*@
-
-                        @*@Html.CheckBoxFor(model => model.Completed, new { htmlAttributes = new { @class = "form-control" } })*@
-                        <input type="checkbox" id="Completed" name="model.Completed">
+                        @*<input type="checkbox" id="Completed" name="model.Completed" value = "false">*@
+                        @Html.CheckBox("Completed", false)
                         @Html.ValidationMessageFor(model => model.Completed, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -189,6 +186,7 @@
         </div>
 
     </div>
+
 }
 
 @section Scripts

@@ -37,14 +37,6 @@ namespace ContaConmigo.Controllers
             return View();
         }
 
-        public JsonResult GetCityList(int ProvinceId)
-        {
-            ContaConmigoEntities db = new ContaConmigoEntities();
-            db.Configuration.ProxyCreationEnabled = false;
-            List<City> CityList = db.Cities.Where(x => x.ProvinceId == ProvinceId).ToList();
-            return Json(CityList, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AgregarSolicitud(RequestDonor a)
@@ -58,17 +50,27 @@ namespace ContaConmigo.Controllers
                 using (var db = new ContaConmigoEntities())
                 {
                     db.RequestDonors.Add(a);
-                    
+
                     db.SaveChanges();
                     return RedirectToAction("ListadoSolicitudDonante");
                 }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("","Error al agregar una solicitud " + ex.Message);
+                ModelState.AddModelError("", "Error al agregar una solicitud " + ex.Message);
                 return View();
             }
         }
+
+        public JsonResult GetCityList(int ProvinceId)
+        {
+            ContaConmigoEntities db = new ContaConmigoEntities();
+            db.Configuration.ProxyCreationEnabled = false;
+            List<City> CityList = db.Cities.Where(x => x.ProvinceId == ProvinceId).ToList();
+            return Json(CityList, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult Detalle(int id)
         {
             try
@@ -89,42 +91,8 @@ namespace ContaConmigo.Controllers
            
         }
 
-        public ActionResult EditarSolicitud(int id)
-        {
 
-            try
-            {
-                using (var db = new ContaConmigoEntities())
-                {
-                    RequestDonor soldon = db.RequestDonors.Where(a=>a.RequestDonorId==id).FirstOrDefault();
 
-                    List<Province> ProvinceList = db.Provinces.ToList();
-                    ViewBag.ProvinceList = new SelectList(ProvinceList,"ProvinceId","ProvinceDescription",soldon.ProvinceId);
-                    //ViewBag.ProvinceList = soldon.ProvinceId;
-
-                    List<City> CityList = db.Cities.ToList();
-                    ViewBag.CityList = new SelectList(CityList, "CityId", "CityName");
-                    //ViewBag.CityList= soldon.CityId;
-
-                    List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
-                    ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
-
-                    List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
-                    ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
-
-                    List<Institution> InstitutionList = db.Institutions.ToList();
-                    ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
-                    return View(soldon);
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Error al editar la información de la solicitud " + ex.Message);
-                return View();
-            }
-                
-                
-        }
         public ActionResult SubirArchivo()
         {
             return View();
@@ -176,6 +144,47 @@ namespace ContaConmigo.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult EditarSolicitud(int id)
+        {
+            try
+            {
+                using (var db = new ContaConmigoEntities())
+                {
+                    RequestDonor soldon = db.RequestDonors.Where(a => a.RequestDonorId == id).FirstOrDefault();
+
+                    var cityid = soldon.CityId;
+                    City provinceidObject = db.Cities.Where(a=> a.CityId == cityid).FirstOrDefault();
+                    ViewBag.provinceidselected = provinceidObject.ProvinceId;
+                    
+                    List<Province> ProvinceList = db.Provinces.ToList();
+                    
+                    ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription", ViewBag.provinceidselected);
+
+                    List<City> CityList = db.Cities.ToList();
+                    ViewBag.CityList = new SelectList(CityList, "CityId", "CityName");
+                    //ViewBag.CityList= soldon.CityId;
+
+                    List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
+                    ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
+
+                    List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
+                    ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
+
+                    List<Institution> InstitutionList = db.Institutions.ToList();
+                    ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
+                  
+                    return View(soldon);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al editar la información de la solicitud " + ex.Message);
+                return View();
+            }
+
+
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -219,6 +228,7 @@ namespace ContaConmigo.Controllers
                 return RedirectToAction("ListadoSolicitudDonante");
             }
         }
+
         public ActionResult EliminarSolicitud(int id)
         {
             using (var db = new ContaConmigoEntities())
