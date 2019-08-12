@@ -67,6 +67,7 @@
                         {
                             @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
                             @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Provincia--", new { @class = "form-control" })
+
                             <div class="col-md-6">
                                 @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
                             </div>
@@ -89,10 +90,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.InstitutionId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-
-
-                        @Html.DropDownListFor(model => model.InstitutionId, ViewBag.InstitutionList as SelectList, "--Institución--", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.InstitutionId, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.InstitutionId, new SelectList(" "), "--Institución--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.InstitutionId, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -186,6 +185,18 @@
                     $("#CityId").empty();
                     $.each(data, function (index, row) {
                         $("#CityId").append("<option value='" + row.CityId + "'>" + row.CityName + "</option>")
+                    });
+                });
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#CityId").change(function () {
+                $.get("/ListadoSolicitudDonantes/GetInstitutionList", { CityId: $("#CityId").val() }, function (data) {
+                    $("#InstitutionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#InstitutionId").append("<option value='" + row.InstitutionId + "'>" + row.InstitutionDescription + "</option>")
                     });
                 });
             })

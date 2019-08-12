@@ -34,7 +34,12 @@ namespace ContaConmigo.Models
         public List<City> Cities { get; set; }
         public List<BloodGroup> BloodGroups { get; set; }
         public List<BloodFactor> BloodFactors  { get; set; }
-        public string SelectedProvince { get; set; }
+
+        public bool? CheckBoxValue
+        {
+            get { return Completed; }
+        }
+        
 
         public virtual BloodFactor BloodFactor { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }

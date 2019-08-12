@@ -15,7 +15,7 @@ namespace ContaConmigo.Controllers
         public ActionResult ListadoSolicitudDonante()
         {
             ContaConmigoEntities db = new ContaConmigoEntities();
-            //db.RequestDonors.ToList();
+
             return View(db.RequestDonors.ToList());
         }
         [HttpGet]
@@ -31,8 +31,8 @@ namespace ContaConmigo.Controllers
             List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
             ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
 
-            List<Institution> InstitutionList = db.Institutions.ToList();
-            ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
+            //List<Institution> InstitutionList = db.Institutions.ToList();
+            //ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
 
             return View();
         }
@@ -49,8 +49,8 @@ namespace ContaConmigo.Controllers
             {
                 using (var db = new ContaConmigoEntities())
                 {
+                    a.Completed = false;
                     db.RequestDonors.Add(a);
-
                     db.SaveChanges();
                     return RedirectToAction("ListadoSolicitudDonante");
                 }
@@ -68,6 +68,14 @@ namespace ContaConmigo.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             List<City> CityList = db.Cities.Where(x => x.ProvinceId == ProvinceId).ToList();
             return Json(CityList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetInstitutionList(int CityId)
+        {
+            ContaConmigoEntities db = new ContaConmigoEntities();
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Institution> InstitutionList = db.Institutions.Where(x => x.CityId == CityId).ToList();
+            return Json(InstitutionList, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -149,22 +157,20 @@ namespace ContaConmigo.Controllers
         {
             try
             {
-                using (var db = new ContaConmigoEntities())
+                using (ContaConmigoEntities db = new ContaConmigoEntities())
                 {
                     RequestDonor soldon = db.RequestDonors.Where(a => a.RequestDonorId == id).FirstOrDefault();
-
-                    var cityid = soldon.CityId;
-                    City provinceidObject = db.Cities.Where(a=> a.CityId == cityid).FirstOrDefault();
-                    ViewBag.provinceidselected = provinceidObject.ProvinceId;
                     
                     List<Province> ProvinceList = db.Provinces.ToList();
+                    ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
                     
-                    ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription", ViewBag.provinceidselected);
 
-                    List<City> CityList = db.Cities.ToList();
-                    ViewBag.CityList = new SelectList(CityList, "CityId", "CityName");
+                    //List<City> CityList = db.Cities.ToList();
+                    //ViewBag.CityList = new SelectList(CityList, "CityId", "CityName");
                     //ViewBag.CityList= soldon.CityId;
-
+                    //var cityid = soldon.CityId;
+                    //City provinceidObject = db.Cities.Where(a => a.CityId == cityid).FirstOrDefault();
+                    //ViewBag.ProvinceIdSelected = provinceidObject.ProvinceId;
                     List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
                     ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
 
@@ -187,14 +193,14 @@ namespace ContaConmigo.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult EditarSolicitud(RequestDonor rd)
         {
             try
             {
                 using (var db = new ContaConmigoEntities())
                 {
-                    RequestDonor reqdon = db.RequestDonors.Find(rd.RequestDonorId);
+                     RequestDonor reqdon = db.RequestDonors.Find(rd.RequestDonorId);
                     if (reqdon != null)
                     {
                         reqdon.Name_Request_Don = rd.Name_Request_Don;
