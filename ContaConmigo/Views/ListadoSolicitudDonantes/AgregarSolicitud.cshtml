@@ -1,19 +1,14 @@
-﻿@model ContaConmigo.Models.RequestDonor
-
+﻿@model ContaConmigo.Model.RequestDonor
 @{
-    /**/
-
     ViewBag.Title = "Listado Solicitud de Donantes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Solicitud de Donantes</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken() // evita que otro formulario ingrese a este mètodo, es por seguridad
-
 
     <div class="form-horizontal">
         <h4>Por favor, completa el siguiente formulario:</h4>
@@ -162,7 +157,6 @@
 
         <div class="row" align="right">
             <div class="col-md-12">
-
                 <button type="submit" class="btn btn-primary">Crear</button>
                 @Html.ActionLink("Volver", "ListadoSolicitudDonante")
             </div>

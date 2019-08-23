@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ContaConmigo.Models
+namespace ContaConmigo.Model
 {
     public class RequestDonorCE
     {
@@ -57,8 +57,8 @@ namespace ContaConmigo.Models
     public partial class RequestDonor //partial se usa para 
 
     {
-    [Required]
-    [Display(Name = "Nombre Completo")]
-    public string NombreCompleto { get { return Last_Name_Request_Don + ", " + Name_Request_Don; } }
+        [Required]
+        [Display(Name = "Nombre Completo")]
+        public string NombreCompleto { get { return Last_Name_Request_Don + ", " + Name_Request_Don; } }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ContaConmigoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ContaConmigoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BloodFactor">
           <Key>
             <PropertyRef Name="BloodFactorId" />
@@ -40,6 +40,7 @@
           <Property Name="Last_Date_Blood_Extract" Type="datetime" />
           <Property Name="BloodGroupId" Type="int" Nullable="false" />
           <Property Name="BloodFactorId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Institution">
           <Key>
@@ -74,8 +75,21 @@
           <Property Name="Comment" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Phone_Number" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="Birthday" Type="date" Nullable="false" />
-          <Property Name="Completed" Type="bit" />
+          <Property Name="Completed" Type="varchar" MaxLength="255" />
           <Property Name="Photo" Type="image" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserContaConmigo">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserFirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserLastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ConfirmEmailAddress" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PasswordUser" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ConfirmPasswordUser" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <Association Name="FK__City__ProvinceId__4F7CD00D">
           <End Role="Province" Type="Self.Province" Multiplicity="1" />
@@ -181,6 +195,7 @@
           <EntitySet Name="Institution" EntityType="Self.Institution" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestDonor" EntityType="Self.RequestDonor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserContaConmigo" EntityType="Self.UserContaConmigo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__City__ProvinceId__4F7CD00D" Association="Self.FK__City__ProvinceId__4F7CD00D">
             <End Role="Province" EntitySet="Province" />
             <End Role="City" EntitySet="City" />
@@ -214,68 +229,28 @@
             <End Role="Donor" EntitySet="Donor" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ContaConmigoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="ContaConmigoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BloodFactors" EntityType="ContaConmigoModel.BloodFactor" />
-          <EntitySet Name="BloodGroups" EntityType="ContaConmigoModel.BloodGroup" />
-          <EntitySet Name="Cities" EntityType="ContaConmigoModel.City" />
-          <EntitySet Name="Donors" EntityType="ContaConmigoModel.Donor" />
-          <EntitySet Name="Institutions" EntityType="ContaConmigoModel.Institution" />
-          <EntitySet Name="Provinces" EntityType="ContaConmigoModel.Province" />
-          <EntitySet Name="RequestDonors" EntityType="ContaConmigoModel.RequestDonor" />
-          <AssociationSet Name="FK__RequestDo__Facto__3B40CD36" Association="ContaConmigoModel.FK__RequestDo__Facto__3B40CD36">
-            <End Role="BloodFactor" EntitySet="BloodFactors" />
-            <End Role="RequestDonor" EntitySet="RequestDonors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Donor_Factor" Association="ContaConmigoModel.FK_Donor_Factor">
-            <End Role="BloodFactor" EntitySet="BloodFactors" />
-            <End Role="Donor" EntitySet="Donors" />
-          </AssociationSet>
-          <AssociationSet Name="FK__RequestDo__Group__3A4CA8FD" Association="ContaConmigoModel.FK__RequestDo__Group__3A4CA8FD">
-            <End Role="BloodGroup" EntitySet="BloodGroups" />
-            <End Role="RequestDonor" EntitySet="RequestDonors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Donor_Group" Association="ContaConmigoModel.FK_Donor_Group">
-            <End Role="BloodGroup" EntitySet="BloodGroups" />
-            <End Role="Donor" EntitySet="Donors" />
-          </AssociationSet>
-          <AssociationSet Name="FK__City__ProvinceId__4F7CD00D" Association="ContaConmigoModel.FK__City__ProvinceId__4F7CD00D">
-            <End Role="Province" EntitySet="Provinces" />
-            <End Role="City" EntitySet="Cities" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Donor__CityId__3E1D39E1" Association="ContaConmigoModel.FK__Donor__CityId__3E1D39E1">
-            <End Role="City" EntitySet="Cities" />
-            <End Role="Donor" EntitySet="Donors" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Instituti__CityI__40058253" Association="ContaConmigoModel.FK__Instituti__CityI__40058253">
-            <End Role="City" EntitySet="Cities" />
-            <End Role="Institution" EntitySet="Institutions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__RequestDo__CityI__3864608B" Association="ContaConmigoModel.FK__RequestDo__CityI__3864608B">
-            <End Role="City" EntitySet="Cities" />
-            <End Role="RequestDonor" EntitySet="RequestDonors" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="BloodFactor">
           <Key>
             <PropertyRef Name="BloodFactorId" />
           </Key>
           <Property Name="BloodFactorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Blood_Factor" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="RequestDonors" Relationship="ContaConmigoModel.FK__RequestDo__Facto__3B40CD36" FromRole="BloodFactor" ToRole="RequestDonor" />
-          <NavigationProperty Name="Donors" Relationship="ContaConmigoModel.FK_Donor_Factor" FromRole="BloodFactor" ToRole="Donor" />
+          <Property Name="Blood_Factor" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RequestDonors" Relationship="Self.FK__RequestDo__Facto__3B40CD36" FromRole="BloodFactor" ToRole="RequestDonor" />
+          <NavigationProperty Name="Donors" Relationship="Self.FK_Donor_Factor" FromRole="BloodFactor" ToRole="Donor" />
         </EntityType>
         <EntityType Name="BloodGroup">
           <Key>
             <PropertyRef Name="BloodGroupId" />
           </Key>
           <Property Name="BloodGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Blood_Group" Type="String" Nullable="false" MaxLength="8" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="RequestDonors" Relationship="ContaConmigoModel.FK__RequestDo__Group__3A4CA8FD" FromRole="BloodGroup" ToRole="RequestDonor" />
-          <NavigationProperty Name="Donors" Relationship="ContaConmigoModel.FK_Donor_Group" FromRole="BloodGroup" ToRole="Donor" />
+          <Property Name="Blood_Group" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RequestDonors" Relationship="Self.FK__RequestDo__Group__3A4CA8FD" FromRole="BloodGroup" ToRole="RequestDonor" />
+          <NavigationProperty Name="Donors" Relationship="Self.FK_Donor_Group" FromRole="BloodGroup" ToRole="Donor" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -283,73 +258,87 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CityId" Type="Int32" Nullable="false" />
-          <Property Name="CityName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="CityName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ZipCode" Type="Int32" Nullable="false" />
           <Property Name="ProvinceId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Province" Relationship="ContaConmigoModel.FK__City__ProvinceId__4F7CD00D" FromRole="City" ToRole="Province" />
-          <NavigationProperty Name="Donors" Relationship="ContaConmigoModel.FK__Donor__CityId__3E1D39E1" FromRole="City" ToRole="Donor" />
-          <NavigationProperty Name="Institutions" Relationship="ContaConmigoModel.FK__Instituti__CityI__40058253" FromRole="City" ToRole="Institution" />
-          <NavigationProperty Name="RequestDonors" Relationship="ContaConmigoModel.FK__RequestDo__CityI__3864608B" FromRole="City" ToRole="RequestDonor" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__City__ProvinceId__4F7CD00D" FromRole="City" ToRole="Province" />
+          <NavigationProperty Name="Donors" Relationship="Self.FK__Donor__CityId__3E1D39E1" FromRole="City" ToRole="Donor" />
+          <NavigationProperty Name="Institutions" Relationship="Self.FK__Instituti__CityI__40058253" FromRole="City" ToRole="Institution" />
+          <NavigationProperty Name="RequestDonors" Relationship="Self.FK__RequestDo__CityI__3864608B" FromRole="City" ToRole="RequestDonor" />
         </EntityType>
         <EntityType Name="Donor">
           <Key>
             <PropertyRef Name="DonorId" />
           </Key>
           <Property Name="DonorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Don" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Last_Name_Don" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Name_Don" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Last_Name_Don" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CityId" Type="Int32" Nullable="false" />
           <Property Name="Last_Date_Blood_Extract" Type="DateTime" Precision="3" />
           <Property Name="BloodGroupId" Type="Int32" Nullable="false" />
           <Property Name="BloodFactorId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BloodFactor" Relationship="ContaConmigoModel.FK_Donor_Factor" FromRole="Donor" ToRole="BloodFactor" />
-          <NavigationProperty Name="BloodGroup" Relationship="ContaConmigoModel.FK_Donor_Group" FromRole="Donor" ToRole="BloodGroup" />
-          <NavigationProperty Name="City" Relationship="ContaConmigoModel.FK__Donor__CityId__3E1D39E1" FromRole="Donor" ToRole="City" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BloodFactor" Relationship="Self.FK_Donor_Factor" FromRole="Donor" ToRole="BloodFactor" />
+          <NavigationProperty Name="BloodGroup" Relationship="Self.FK_Donor_Group" FromRole="Donor" ToRole="BloodGroup" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Donor__CityId__3E1D39E1" FromRole="Donor" ToRole="City" />
         </EntityType>
         <EntityType Name="Institution">
           <Key>
             <PropertyRef Name="InstitutionId" />
           </Key>
           <Property Name="InstitutionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InstitutionDescription" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="InstitutionAdress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="InstitutionDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InstitutionAdress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="CityId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="City" Relationship="ContaConmigoModel.FK__Instituti__CityI__40058253" FromRole="Institution" ToRole="City" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Instituti__CityI__40058253" FromRole="Institution" ToRole="City" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
             <PropertyRef Name="ProvinceId" />
           </Key>
           <Property Name="ProvinceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProvinceDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Cities" Relationship="ContaConmigoModel.FK__City__ProvinceId__4F7CD00D" FromRole="Province" ToRole="City" />
+          <Property Name="ProvinceDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK__City__ProvinceId__4F7CD00D" FromRole="Province" ToRole="City" />
         </EntityType>
         <EntityType Name="RequestDonor">
           <Key>
             <PropertyRef Name="RequestDonorId" />
           </Key>
           <Property Name="RequestDonorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Request_Don" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Last_Name_Request_Don" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Name_Request_Don" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Last_Name_Request_Don" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CityId" Type="Int32" Nullable="false" />
           <Property Name="Last_Date_Replacement" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="AmountDonor" Type="Int32" Nullable="false" />
           <Property Name="InstitutionId" Type="Int32" Nullable="false" />
           <Property Name="GroupId" Type="Int32" Nullable="false" />
           <Property Name="FactorId" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Phone_Number" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone_Number" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Completed" Type="Boolean" />
+          <Property Name="Completed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="BloodFactor" Relationship="ContaConmigoModel.FK__RequestDo__Facto__3B40CD36" FromRole="RequestDonor" ToRole="BloodFactor" />
-          <NavigationProperty Name="BloodGroup" Relationship="ContaConmigoModel.FK__RequestDo__Group__3A4CA8FD" FromRole="RequestDonor" ToRole="BloodGroup" />
-          <NavigationProperty Name="City" Relationship="ContaConmigoModel.FK__RequestDo__CityI__3864608B" FromRole="RequestDonor" ToRole="City" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BloodFactor" Relationship="Self.FK__RequestDo__Facto__3B40CD36" FromRole="RequestDonor" ToRole="BloodFactor" />
+          <NavigationProperty Name="BloodGroup" Relationship="Self.FK__RequestDo__Group__3A4CA8FD" FromRole="RequestDonor" ToRole="BloodGroup" />
+          <NavigationProperty Name="City" Relationship="Self.FK__RequestDo__CityI__3864608B" FromRole="RequestDonor" ToRole="City" />
+        </EntityType>
+        <EntityType Name="UserContaConmigo">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ConfirmEmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordUser" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ConfirmPasswordUser" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="FK__RequestDo__Facto__3B40CD36">
-          <End Type="ContaConmigoModel.BloodFactor" Role="BloodFactor" Multiplicity="1" />
-          <End Type="ContaConmigoModel.RequestDonor" Role="RequestDonor" Multiplicity="*" />
+          <End Role="BloodFactor" Type="Self.BloodFactor" Multiplicity="1" />
+          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BloodFactor">
               <PropertyRef Name="BloodFactorId" />
@@ -360,8 +349,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Donor_Factor">
-          <End Type="ContaConmigoModel.BloodFactor" Role="BloodFactor" Multiplicity="1" />
-          <End Type="ContaConmigoModel.Donor" Role="Donor" Multiplicity="*" />
+          <End Role="BloodFactor" Type="Self.BloodFactor" Multiplicity="1" />
+          <End Role="Donor" Type="Self.Donor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BloodFactor">
               <PropertyRef Name="BloodFactorId" />
@@ -372,8 +361,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__RequestDo__Group__3A4CA8FD">
-          <End Type="ContaConmigoModel.BloodGroup" Role="BloodGroup" Multiplicity="1" />
-          <End Type="ContaConmigoModel.RequestDonor" Role="RequestDonor" Multiplicity="*" />
+          <End Role="BloodGroup" Type="Self.BloodGroup" Multiplicity="1" />
+          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BloodGroup">
               <PropertyRef Name="BloodGroupId" />
@@ -384,8 +373,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Donor_Group">
-          <End Type="ContaConmigoModel.BloodGroup" Role="BloodGroup" Multiplicity="1" />
-          <End Type="ContaConmigoModel.Donor" Role="Donor" Multiplicity="*" />
+          <End Role="BloodGroup" Type="Self.BloodGroup" Multiplicity="1" />
+          <End Role="Donor" Type="Self.Donor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BloodGroup">
               <PropertyRef Name="BloodGroupId" />
@@ -396,8 +385,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__City__ProvinceId__4F7CD00D">
-          <End Type="ContaConmigoModel.Province" Role="Province" Multiplicity="1" />
-          <End Type="ContaConmigoModel.City" Role="City" Multiplicity="*" />
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Province">
               <PropertyRef Name="ProvinceId" />
@@ -408,8 +397,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Donor__CityId__3E1D39E1">
-          <End Type="ContaConmigoModel.City" Role="City" Multiplicity="1" />
-          <End Type="ContaConmigoModel.Donor" Role="Donor" Multiplicity="*" />
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Donor" Type="Self.Donor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="Id" />
@@ -420,8 +409,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Instituti__CityI__40058253">
-          <End Type="ContaConmigoModel.City" Role="City" Multiplicity="1" />
-          <End Type="ContaConmigoModel.Institution" Role="Institution" Multiplicity="*" />
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="Id" />
@@ -432,8 +421,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__RequestDo__CityI__3864608B">
-          <End Type="ContaConmigoModel.City" Role="City" Multiplicity="1" />
-          <End Type="ContaConmigoModel.RequestDonor" Role="RequestDonor" Multiplicity="*" />
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="Id" />
@@ -443,88 +432,145 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="ContaConmigoEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BloodFactors" EntityType="Self.BloodFactor" />
+          <EntitySet Name="BloodGroups" EntityType="Self.BloodGroup" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Donors" EntityType="Self.Donor" />
+          <EntitySet Name="Institutions" EntityType="Self.Institution" />
+          <EntitySet Name="Provinces" EntityType="Self.Province" />
+          <EntitySet Name="RequestDonors" EntityType="Self.RequestDonor" />
+          <EntitySet Name="UserContaConmigoes" EntityType="Self.UserContaConmigo" />
+          <AssociationSet Name="FK__RequestDo__Facto__3B40CD36" Association="Self.FK__RequestDo__Facto__3B40CD36">
+            <End Role="BloodFactor" EntitySet="BloodFactors" />
+            <End Role="RequestDonor" EntitySet="RequestDonors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Donor_Factor" Association="Self.FK_Donor_Factor">
+            <End Role="BloodFactor" EntitySet="BloodFactors" />
+            <End Role="Donor" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestDo__Group__3A4CA8FD" Association="Self.FK__RequestDo__Group__3A4CA8FD">
+            <End Role="BloodGroup" EntitySet="BloodGroups" />
+            <End Role="RequestDonor" EntitySet="RequestDonors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Donor_Group" Association="Self.FK_Donor_Group">
+            <End Role="BloodGroup" EntitySet="BloodGroups" />
+            <End Role="Donor" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__City__ProvinceId__4F7CD00D" Association="Self.FK__City__ProvinceId__4F7CD00D">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Donor__CityId__3E1D39E1" Association="Self.FK__Donor__CityId__3E1D39E1">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Donor" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Instituti__CityI__40058253" Association="Self.FK__Instituti__CityI__40058253">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Institution" EntitySet="Institutions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestDo__CityI__3864608B" Association="Self.FK__RequestDo__CityI__3864608B">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="RequestDonor" EntitySet="RequestDonors" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ContaConmigoModelStoreContainer" CdmEntityContainer="ContaConmigoEntities">
+        <EntityContainerMapping StorageEntityContainer="ContaConmigoModelStoreContainer" CdmEntityContainer="ContaConmigoEntities1">
           <EntitySetMapping Name="BloodFactors">
             <EntityTypeMapping TypeName="ContaConmigoModel.BloodFactor">
               <MappingFragment StoreEntitySet="BloodFactor">
-                <ScalarProperty Name="Blood_Factor" ColumnName="Blood_Factor" />
                 <ScalarProperty Name="BloodFactorId" ColumnName="BloodFactorId" />
+                <ScalarProperty Name="Blood_Factor" ColumnName="Blood_Factor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BloodGroups">
             <EntityTypeMapping TypeName="ContaConmigoModel.BloodGroup">
               <MappingFragment StoreEntitySet="BloodGroup">
-                <ScalarProperty Name="Blood_Group" ColumnName="Blood_Group" />
                 <ScalarProperty Name="BloodGroupId" ColumnName="BloodGroupId" />
+                <ScalarProperty Name="Blood_Group" ColumnName="Blood_Group" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cities">
             <EntityTypeMapping TypeName="ContaConmigoModel.City">
               <MappingFragment StoreEntitySet="City">
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Donors">
             <EntityTypeMapping TypeName="ContaConmigoModel.Donor">
               <MappingFragment StoreEntitySet="Donor">
-                <ScalarProperty Name="BloodFactorId" ColumnName="BloodFactorId" />
-                <ScalarProperty Name="BloodGroupId" ColumnName="BloodGroupId" />
-                <ScalarProperty Name="Last_Date_Blood_Extract" ColumnName="Last_Date_Blood_Extract" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="Last_Name_Don" ColumnName="Last_Name_Don" />
-                <ScalarProperty Name="Name_Don" ColumnName="Name_Don" />
                 <ScalarProperty Name="DonorId" ColumnName="DonorId" />
+                <ScalarProperty Name="Name_Don" ColumnName="Name_Don" />
+                <ScalarProperty Name="Last_Name_Don" ColumnName="Last_Name_Don" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Last_Date_Blood_Extract" ColumnName="Last_Date_Blood_Extract" />
+                <ScalarProperty Name="BloodGroupId" ColumnName="BloodGroupId" />
+                <ScalarProperty Name="BloodFactorId" ColumnName="BloodFactorId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Institutions">
             <EntityTypeMapping TypeName="ContaConmigoModel.Institution">
               <MappingFragment StoreEntitySet="Institution">
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="InstitutionAdress" ColumnName="InstitutionAdress" />
-                <ScalarProperty Name="InstitutionDescription" ColumnName="InstitutionDescription" />
                 <ScalarProperty Name="InstitutionId" ColumnName="InstitutionId" />
+                <ScalarProperty Name="InstitutionDescription" ColumnName="InstitutionDescription" />
+                <ScalarProperty Name="InstitutionAdress" ColumnName="InstitutionAdress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Provinces">
             <EntityTypeMapping TypeName="ContaConmigoModel.Province">
               <MappingFragment StoreEntitySet="Province">
-                <ScalarProperty Name="ProvinceDescription" ColumnName="ProvinceDescription" />
                 <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="ProvinceDescription" ColumnName="ProvinceDescription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequestDonors">
             <EntityTypeMapping TypeName="ContaConmigoModel.RequestDonor">
               <MappingFragment StoreEntitySet="RequestDonor">
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="FactorId" ColumnName="FactorId" />
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-                <ScalarProperty Name="InstitutionId" ColumnName="InstitutionId" />
-                <ScalarProperty Name="AmountDonor" ColumnName="AmountDonor" />
-                <ScalarProperty Name="Last_Date_Replacement" ColumnName="Last_Date_Replacement" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="Last_Name_Request_Don" ColumnName="Last_Name_Request_Don" />
-                <ScalarProperty Name="Name_Request_Don" ColumnName="Name_Request_Don" />
                 <ScalarProperty Name="RequestDonorId" ColumnName="RequestDonorId" />
+                <ScalarProperty Name="Name_Request_Don" ColumnName="Name_Request_Don" />
+                <ScalarProperty Name="Last_Name_Request_Don" ColumnName="Last_Name_Request_Don" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Last_Date_Replacement" ColumnName="Last_Date_Replacement" />
+                <ScalarProperty Name="AmountDonor" ColumnName="AmountDonor" />
+                <ScalarProperty Name="InstitutionId" ColumnName="InstitutionId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="FactorId" ColumnName="FactorId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserContaConmigoes">
+            <EntityTypeMapping TypeName="ContaConmigoModel.UserContaConmigo">
+              <MappingFragment StoreEntitySet="UserContaConmigo">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ConfirmEmailAddress" ColumnName="ConfirmEmailAddress" />
+                <ScalarProperty Name="PasswordUser" ColumnName="PasswordUser" />
+                <ScalarProperty Name="ConfirmPasswordUser" ColumnName="ConfirmPasswordUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -542,7 +588,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />

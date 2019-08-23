@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ContaConmigo.Models
+namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,6 @@ namespace ContaConmigo.Models
         public int RequestDonorId { get; set; }
         public string Name_Request_Don { get; set; }
         public string Last_Name_Request_Don { get; set; }
-        public int ProvinceId { get; set; }
         public int CityId { get; set; }
         public System.DateTime Last_Date_Replacement { get; set; }
         public int AmountDonor { get; set; }
@@ -27,25 +26,13 @@ namespace ContaConmigo.Models
         public string Comment { get; set; }
         public string Phone_Number { get; set; }
         public System.DateTime Birthday { get; set; }
-        public Nullable<bool> Completed { get; set; }
+        public string Completed { get; set; }
         public byte[] Photo { get; set; }
-        public List<Institution> Institutions { get; set; }
-        public List<Province> Provinces { get; set; }
-        public List<City> Cities { get; set; }
-        public List<BloodGroup> BloodGroups { get; set; }
-        public List<BloodFactor> BloodFactors  { get; set; }
-
-        public bool? CheckBoxValue
-        {
-            get { return Completed; }
-        }
-        
+        public int UserId { get; set; }
+        public int ProvinceId { get; set; }
 
         public virtual BloodFactor BloodFactor { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }
         public virtual City City { get; set; }
-        public virtual Province Province{ get; set; }
-        public virtual Institution Institution { get; set; }
-       
     }
 }

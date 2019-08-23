@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="with-device-with" />
-    @model IEnumerable<ContaConmigo.Models.RequestDonor>
+    @model IEnumerable<ContaConmigo.Model.RequestDonor>
 
     @{
         ViewBag.Title = "Listado de Solicitudes de Donantes";
@@ -21,12 +21,10 @@
     <table class="table">
         <tr>
             <th>
-
                 @Html.DisplayNameFor(model => model.NombreCompleto)
             </th>
 
             <th>
-
                 @Html.DisplayNameFor(model => model.Birthday)
             </th>
             <th>
@@ -98,10 +96,12 @@
             </td>
             <td>
                 @*@{
-                    var checkboxAttributes = modelItem => item.CheckBoxValue ?
-                }
-                @Html.CheckBox(checkboxAttributes)*@
-                @Html.DisplayFor(modelItem => item.CheckBoxValue)
+
+                    for (modelItem => item.Completed) { string compl = (item.Completed);
+                        //Boolean var = Convert.ToBoolean(Convert.ToInt32(compl));
+                    @Html.CheckBox(compl)} }*@
+                @Html.DisplayFor(modelItem => item.Completed)
+
             </td>
 
 

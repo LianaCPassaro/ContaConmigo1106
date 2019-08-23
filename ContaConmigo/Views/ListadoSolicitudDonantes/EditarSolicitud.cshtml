@@ -1,4 +1,4 @@
-﻿@model ContaConmigo.Models.RequestDonor
+﻿@model ContaConmigo.Model.RequestDonor
 
 @{
     /**/
@@ -168,7 +168,7 @@
                     @Html.LabelFor(model => model.Completed, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @*<input type="checkbox" id="Completed" name="model.Completed" value = "false">*@
-                        @Html.CheckBox("Completed")
+                        @Html.CheckBox("Completo")
                         @Html.ValidationMessageFor(model => model.Completed, "", new { @class = "text-danger" })
                     </div>
                 </div>

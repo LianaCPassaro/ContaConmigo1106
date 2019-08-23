@@ -7,22 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ContaConmigo.Models
+namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class BloodGroup
+    public partial class BloodFactor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BloodGroup()
+        public BloodFactor()
         {
             this.RequestDonors = new HashSet<RequestDonor>();
             this.Donors = new HashSet<Donor>();
         }
     
-        public int BloodGroupId { get; set; }
-        public string Blood_Group { get; set; }
+        public int BloodFactorId { get; set; }
+        public string Blood_Factor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestDonor> RequestDonors { get; set; }

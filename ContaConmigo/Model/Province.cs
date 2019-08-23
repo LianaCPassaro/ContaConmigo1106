@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ContaConmigo.Models
+namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;

@@ -7,15 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ContaConmigo.Models
+namespace ContaConmigo.Model
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ContaConmigoEntities : DbContext
+    public partial class ContaConmigoEntities1 : DbContext
     {
-        public ContaConmigoEntities() : base("name=ContaConmigoEntities")
+        public ContaConmigoEntities1()
+            : base("name=ContaConmigoEntities1")
         {
         }
     
@@ -31,5 +32,6 @@ namespace ContaConmigo.Models
         public virtual DbSet<Institution> Institutions { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<RequestDonor> RequestDonors { get; set; }
+        public virtual DbSet<UserContaConmigo> UserContaConmigoes { get; set; }
     }
 }
