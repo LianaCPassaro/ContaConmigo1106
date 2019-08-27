@@ -25,7 +25,7 @@ namespace ContaConmigo.Model
         public string Phone_Number { get; set; }
         [Required]
         [Display(Name = "Provincia")]
-        public int ProvinceId { get; set; }
+        public string ProvinceDescription { get; set; }
         [Required]
         [Display(Name = "Ciudad")]
         public int CityId { get; set; }
@@ -51,6 +51,13 @@ namespace ContaConmigo.Model
         public byte[] Photo { get; set; }
         [Display(Name = "Comentarios")]
         public string Comment { get; set; }
+
+        [Display(Name = "Completo")]
+        public string Completed { get; set; }
+
+        [Display(Name = "Institución")]
+        public string InstitutionDescription { get; set; }
+
     }
 
     [MetadataType(typeof(RequestDonorCE))]

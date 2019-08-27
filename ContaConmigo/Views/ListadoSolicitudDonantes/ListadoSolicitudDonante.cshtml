@@ -16,26 +16,21 @@
 
     <p>
         @Html.ActionLink("Crear Nueva Solicitud", "AgregarSolicitud")
-
-    </p>
+  </p>
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NombreCompleto)
             </th>
-
             <th>
                 @Html.DisplayNameFor(model => model.Birthday)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProvinceId)
+                @Html.DisplayNameFor(model => model.ProvinceDescription)     
             </th>
-
             <th>
-                @Html.DisplayNameFor(model => model.CityId)
-                
+                @Html.DisplayNameFor(model => model.CityId)              
             </th>
-
             <th>
                 @Html.DisplayNameFor(model => model.Last_Date_Replacement)
             </th>
@@ -43,7 +38,7 @@
                 @Html.DisplayNameFor(model => model.AmountDonor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InstitutionId)
+                @Html.DisplayNameFor(model => model.InstitutionDescription)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.GroupId)
@@ -64,19 +59,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NombreCompleto)
             </td>
-
             <td>
+                @*@Html.DisplayFor(modelItem => item.Birthday)*@
                 @item.Birthday.ToShortDateString()
             </td>
-
             <td>
-
-                @Html.DisplayFor(modelItem => item.ProvinceId)
+                @Html.DisplayFor(modelItem => item.ProvinceDescription)
             </td>
 
             <td>
                 
-                @Html.DisplayFor(modelItem => item.CityId)
+                @Html.DisplayFor(modelItem => item.City.CityName)
             </td>
 
             <td>
@@ -86,25 +79,19 @@
                 @Html.DisplayFor(modelItem => item.AmountDonor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InstitutionId)
+                @*@ViewBag.InstitutionList.InstitutionDescription*@
+                @Html.DisplayFor(modelItem => item.Institution.InstitutionDescription)
+     
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GroupId)
+                @Html.DisplayFor(modelItem => item.BloodGroup.Blood_Group)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FactorId)
+                @Html.DisplayFor(modelItem => item.BloodFactor.Blood_Factor)
             </td>
             <td>
-                @*@{
-
-                    for (modelItem => item.Completed) { string compl = (item.Completed);
-                        //Boolean var = Convert.ToBoolean(Convert.ToInt32(compl));
-                    @Html.CheckBox(compl)} }*@
                 @Html.DisplayFor(modelItem => item.Completed)
-
             </td>
-
-
             <td>
                 @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
                 @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })

@@ -29,10 +29,17 @@ namespace ContaConmigo.Model
         public string Completed { get; set; }
         public byte[] Photo { get; set; }
         public int UserId { get; set; }
+        public string ProvinceDescription { get; set; }
         public int ProvinceId { get; set; }
+        public string InstitutionDescription { get; set; }
 
         public virtual BloodFactor BloodFactor { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }
         public virtual City City { get; set; }
+        public virtual Institution Institution { get; set; }
+        public virtual Province Province { get; set; }
+        //hemos creado la propiedad Provinces, la cual se encargará de almacenar a todas las Provinces.
+        //public ICollection<Province> Provinces { get; set; }
+
     }
 }

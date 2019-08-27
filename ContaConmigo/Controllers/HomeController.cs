@@ -64,7 +64,7 @@ namespace ContaConmigo.Controllers
                     db.UserContaConmigoes.Add(a);
                     db.SaveChanges();
 
-                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    //Response.StatusCode = (int)HttpStatusCode.OK;
                     return RedirectToAction("Index");
                 }
             }

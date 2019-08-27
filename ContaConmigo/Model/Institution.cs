@@ -14,6 +14,12 @@ namespace ContaConmigo.Model
     
     public partial class Institution
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Institution()
+        {
+            this.RequestDonors = new HashSet<RequestDonor>();
+        }
+    
         public int InstitutionId { get; set; }
         public string InstitutionDescription { get; set; }
         public string InstitutionAdress { get; set; }
@@ -21,5 +27,7 @@ namespace ContaConmigo.Model
         public int CityId { get; set; }
     
         public virtual City City { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequestDonor> RequestDonors { get; set; }
     }
 }

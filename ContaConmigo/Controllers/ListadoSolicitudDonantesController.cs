@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
+
 
 namespace ContaConmigo.Controllers
 {
@@ -15,8 +17,15 @@ namespace ContaConmigo.Controllers
         public ActionResult ListadoSolicitudDonante()
         {
             ContaConmigoEntities1 db = new ContaConmigoEntities1();
-
-
+            //List<Province> ProvinceList = db.Provinces.ToList();
+            //List<RequestDonor> RequestDonorList = db.RequestDonors.ToList();
+            //List<City> CityList = db.Cities.ToList();
+            //ViewData["joinatables"] = from r in RequestDonorList
+            //                          join c in CityList on r.CityId equals c.Id into table1
+            //                          from c in table1.DefaultIfEmpty()
+            //                          join p in ProvinceList on c.ProvinceId equals p.ProvinceId into table2
+            //                          from p in table2.DefaultIfEmpty()
+            //                          select new MultiSelectList { RequestDonorList = r, CityList = c, ProvinceList = p };
             return View(db.RequestDonors.ToList());
         }
         [HttpGet]
@@ -32,8 +41,8 @@ namespace ContaConmigo.Controllers
             List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
             ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
 
-            //List<Institution> InstitutionList = db.Institutions.ToList();
-            //ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
+            List<Institution> InstitutionList = db.Institutions.ToList();
+            ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
 
             return View();
         }
@@ -62,6 +71,8 @@ namespace ContaConmigo.Controllers
                 return View();
             }
         }
+
+
 
         public JsonResult GetCityList(int ProvinceId)
         {

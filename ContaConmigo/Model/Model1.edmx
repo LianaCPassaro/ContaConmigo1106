@@ -187,6 +187,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Institution_Req_Donor">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="InstitutionId" />
+            </Principal>
+            <Dependent Role="RequestDonor">
+              <PropertyRef Name="InstitutionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ContaConmigoModelStoreContainer">
           <EntitySet Name="BloodFactor" EntityType="Self.BloodFactor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BloodGroup" EntityType="Self.BloodGroup" Schema="dbo" store:Type="Tables" />
@@ -227,6 +239,10 @@
           <AssociationSet Name="FK_Donor_Group" Association="Self.FK_Donor_Group">
             <End Role="BloodGroup" EntitySet="BloodGroup" />
             <End Role="Donor" EntitySet="Donor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Institution_Req_Donor" Association="Self.FK_Institution_Req_Donor">
+            <End Role="Institution" EntitySet="Institution" />
+            <End Role="RequestDonor" EntitySet="RequestDonor" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -292,6 +308,7 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="CityId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="City" Relationship="Self.FK__Instituti__CityI__40058253" FromRole="Institution" ToRole="City" />
+          <NavigationProperty Name="RequestDonors" Relationship="Self.FK_Institution_Req_Donor" FromRole="Institution" ToRole="RequestDonor" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -323,6 +340,7 @@
           <NavigationProperty Name="BloodFactor" Relationship="Self.FK__RequestDo__Facto__3B40CD36" FromRole="RequestDonor" ToRole="BloodFactor" />
           <NavigationProperty Name="BloodGroup" Relationship="Self.FK__RequestDo__Group__3A4CA8FD" FromRole="RequestDonor" ToRole="BloodGroup" />
           <NavigationProperty Name="City" Relationship="Self.FK__RequestDo__CityI__3864608B" FromRole="RequestDonor" ToRole="City" />
+          <NavigationProperty Name="Institution" Relationship="Self.FK_Institution_Req_Donor" FromRole="RequestDonor" ToRole="Institution" />
         </EntityType>
         <EntityType Name="UserContaConmigo">
           <Key>
@@ -432,6 +450,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Institution_Req_Donor">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="InstitutionId" />
+            </Principal>
+            <Dependent Role="RequestDonor">
+              <PropertyRef Name="InstitutionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ContaConmigoEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BloodFactors" EntityType="Self.BloodFactor" />
           <EntitySet Name="BloodGroups" EntityType="Self.BloodGroup" />
@@ -471,6 +501,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__RequestDo__CityI__3864608B" Association="Self.FK__RequestDo__CityI__3864608B">
             <End Role="City" EntitySet="Cities" />
+            <End Role="RequestDonor" EntitySet="RequestDonors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Institution_Req_Donor" Association="Self.FK_Institution_Req_Donor">
+            <End Role="Institution" EntitySet="Institutions" />
             <End Role="RequestDonor" EntitySet="RequestDonors" />
           </AssociationSet>
         </EntityContainer>
