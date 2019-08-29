@@ -25,11 +25,10 @@ namespace ContaConmigo.Model
         public string Phone_Number { get; set; }
         [Required]
         [Display(Name = "Provincia")]
-        public string ProvinceDescription { get; set; }
+        public string ProvinceDescription { get; set; } 
         [Required]
         [Display(Name = "Ciudad")]
         public int CityId { get; set; }
-
         [Required]
         [Display(Name = "Fecha Límite Recepción")]
         [DataType(DataType.Date)]

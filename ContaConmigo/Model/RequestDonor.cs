@@ -29,6 +29,7 @@ namespace ContaConmigo.Model
         public string Completed { get; set; }
         public byte[] Photo { get; set; }
         public int UserId { get; set; }
+        public int Id { get; set; }
         public string ProvinceDescription { get; set; }
         public int ProvinceId { get; set; }
         public string InstitutionDescription { get; set; }

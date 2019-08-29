@@ -60,7 +60,7 @@
                     <div class="form-group">
                         @if (ViewBag.ProvinceList != null)
                         {
-                            @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.ProvinceDescription, htmlAttributes: new { @class = "control-label col-md-2" })
                             @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Provincia--", new { @class = "form-control" })
 
                             <div class="col-md-6">
@@ -69,11 +69,13 @@
                         }
                     </div>
                 </div>
+
                 <div class="col-md-6">
                     <div class="form-group">
+                        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "--Ciudad--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.Id, new SelectList(" "), "--Ciudad--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
@@ -84,8 +86,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.InstitutionId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.InstitutionId, new SelectList(" "), "--Institución--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.InstitutionId, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.InstitutionId, new SelectList(" "), "--Institución--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.InstitutionId, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -170,9 +172,9 @@
         $(document).ready(function () {
             $("#ProvinceId").change(function () {
                 $.get("/ListadoSolicitudDonantes/GetCityList", { ProvinceId: $("#ProvinceId").val() }, function (data) {
-                    $("#CityId").empty();
+                    $("#Id").empty();
                     $.each(data, function (index, row) {
-                        $("#CityId").append("<option value='" + row.CityId + "'>" + row.CityName + "</option>")
+                        $("#Id").append("<option value='" + row.Id + "'>" + row.CityName + "</option>")
                     });
                 });
             })
@@ -181,7 +183,7 @@
     <script>
         $(document).ready(function () {
             $("#CityId").change(function () {
-                $.get("/ListadoSolicitudDonantes/GetInstitutionList", { CityId: $("#CityId").val() }, function (data) {
+                $.get("/ListadoSolicitudDonantes/GetInstitutionList", { CityId: $("#Id").val() }, function (data) {
                     $("#InstitutionId").empty();
                     $.each(data, function (index, row) {
                         $("#InstitutionId").append("<option value='" + row.InstitutionId + "'>" + row.InstitutionDescription + "</option>")
