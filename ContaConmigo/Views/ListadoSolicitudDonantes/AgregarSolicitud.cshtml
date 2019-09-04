@@ -1,5 +1,7 @@
 ﻿@model ContaConmigo.Model.RequestDonor
 @{
+    /**/
+
     ViewBag.Title = "Listado Solicitud de Donantes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -17,7 +19,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Name_Request_Don, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Name_Request_Don, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Name_Request_Don, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Name_Request_Don, "", new { @class = "text-danger" })
@@ -26,7 +28,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Last_Name_Request_Don, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Last_Name_Request_Don, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Last_Name_Request_Don, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Last_Name_Request_Don, "", new { @class = "text-danger" })
@@ -37,7 +39,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
@@ -46,7 +48,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
@@ -60,19 +62,19 @@
                     <div class="form-group">
                         @if (ViewBag.ProvinceList != null)
                         {
-                            @Html.LabelFor(model => model.ProvinceDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Provincia--", new { @class = "form-control" })
-
-                            <div class="col-md-6">
+                            @Html.LabelFor(model => model.ProvinceDescription, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Provincia--", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
                             </div>
                         }
+
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label" })
                         <div class="col-md-10">
                             @Html.DropDownListFor(model => model.Id, new SelectList(" "), "--Ciudad--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
@@ -84,7 +86,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.InstitutionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.InstitutionId, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.InstitutionId, new SelectList(" "), "--Institución--", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.InstitutionId, "", new { @class = "text-danger" })
@@ -105,7 +107,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Last_Date_Replacement, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Last_Date_Replacement, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Last_Date_Replacement, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Last_Date_Replacement, "", new { @class = "text-danger" })
@@ -114,7 +116,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.AmountDonor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.AmountDonor, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.AmountDonor, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.AmountDonor, "", new { @class = "text-danger" })
@@ -125,26 +127,32 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.GroupId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.GroupId, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.GroupId, ViewBag.BloodGroupList as SelectList, "--Grupo--", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.BloodGroupId, ViewBag.BloodGroupList as SelectList, "--Grupo--", new { @class = "form-control" })
+                        
+                        @*@Html.DropDownListFor(model => model.GroupId, new SelectList(" "), "--Grupo--", new { @class = "form-control" })*@
+                        @*@Html.DropDownListFor(model => model.GroupId, Model.BloodGroupList)*@
+                        @*@Html.DropDownList("BloodGroupId", (List<SelectListItem>)ViewBag.bloodGrupo, "--Grupo--", new { @class = "form-control" })*@
+                        @*@Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })*@
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.FactorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.FactorId, htmlAttributes: new { @class = "control-label" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.FactorId, ViewBag.BloodFactorList as SelectList, "--Factor--", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.FactorId, "", new { @class = "text-danger" })
+                        @Html.DropDownList("BloodFactorId", (List<SelectListItem>)ViewBag.bloodFact, "--Factor--", new { @class = "form-control" })
+                        @*@Html.DropDownListFor(model => model.FactorId, new SelectList(" "), "--Factor--", new { @class = "form-control" })*@
+                        @*@Html.ValidationMessageFor(model => model.FactorId, "", new { @class = "text-danger" })*@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-1" })
+            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-4">
                 @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
@@ -182,7 +190,7 @@
     </script>
     <script>
         $(document).ready(function () {
-            $("#CityId").change(function () {
+            $("#Id").change(function () {
                 $.get("/ListadoSolicitudDonantes/GetInstitutionList", { CityId: $("#Id").val() }, function (data) {
                     $("#InstitutionId").empty();
                     $.each(data, function (index, row) {
@@ -196,24 +204,18 @@
     <script>
         $(document).ready(function () {
             $('#btnUpload').click(function () {
-
                 // Checking whether FormData is available in browser
                 if (window.FormData !== undefined) {
-
                     var fileUpload = $("#FileUpload1").get(0);
                     var files = fileUpload.files;
-
                     // Create FormData object
                     var fileData = new FormData();
-
                     // Looping over all files and add it to FormData object
                     for (var i = 0; i < files.length; i++) {
                         fileData.append(files[i].name, files[i]);
                     }
-
                     // Adding one more key to FormData object
                     fileData.append('username', 'Manas');
-
                     $.ajax({
                         url: '/Temp',
                         type: "POST",

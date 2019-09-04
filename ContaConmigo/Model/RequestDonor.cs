@@ -11,7 +11,8 @@ namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class RequestDonor
     {
         public int RequestDonorId { get; set; }
@@ -27,20 +28,21 @@ namespace ContaConmigo.Model
         public string Phone_Number { get; set; }
         public System.DateTime Birthday { get; set; }
         public string Completed { get; set; }
-        public byte[] Photo { get; set; }
-        public int UserId { get; set; }
-        public int Id { get; set; }
         public string ProvinceDescription { get; set; }
         public int ProvinceId { get; set; }
         public string InstitutionDescription { get; set; }
+        public byte[] Photo { get; set; }
+        public int UserId { get; set; }
+        public string cityName { get; set; }
+        public int Id { get; set; }
+        public int BloodGroupId { get; set; }
+        public IEnumerable<SelectListItem> BloodFactorList { get; set; }
+        public IEnumerable<SelectListItem> BloodGroupList { get; set; }
 
         public virtual BloodFactor BloodFactor { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }
         public virtual City City { get; set; }
         public virtual Institution Institution { get; set; }
         public virtual Province Province { get; set; }
-        //hemos creado la propiedad Provinces, la cual se encargará de almacenar a todas las Provinces.
-        //public ICollection<Province> Provinces { get; set; }
-
     }
 }

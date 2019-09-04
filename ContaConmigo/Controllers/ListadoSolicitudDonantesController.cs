@@ -6,26 +6,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
-
+using System.Web.UI.WebControls;
+using System.Reflection.Emit;
 
 namespace ContaConmigo.Controllers
 {
     public class ListadoSolicitudDonantesController : System.Web.Mvc.Controller
     {
- 
+
         // GET: SolicitudDonante
         public ActionResult ListadoSolicitudDonante()
         {
             ContaConmigoEntities1 db = new ContaConmigoEntities1();
-            //List<Province> ProvinceList = db.Provinces.ToList();
-            //List<RequestDonor> RequestDonorList = db.RequestDonors.ToList();
-            //List<City> CityList = db.Cities.ToList();
-            //ViewData["joinatables"] = from r in RequestDonorList
-            //                          join c in CityList on r.CityId equals c.Id into table1
-            //                          from c in table1.DefaultIfEmpty()
-            //                          join p in ProvinceList on c.ProvinceId equals p.ProvinceId into table2
-            //                          from p in table2.DefaultIfEmpty()
-            //                          select new MultiSelectList { RequestDonorList = r, CityList = c, ProvinceList = p };
+
             return View(db.RequestDonors.ToList());
         }
         [HttpGet]
@@ -35,45 +28,39 @@ namespace ContaConmigo.Controllers
             List<Province> ProvinceList = db.Provinces.ToList();
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
 
-            List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
-            ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
-
             List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
             ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
 
-            List<Institution> InstitutionList = db.Institutions.ToList();
-            ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
+            //otra forma de cargar el combo grupo
+            //var bloodGrupo = db.BloodGroups.ToList();
+
+            //List<SelectListItem> BloodGroupList = new List<SelectListItem>();
+            //foreach (var m in bloodGrupo)
+            //{
+            //    BloodGroupList.Add(new SelectListItem { Text = m.Blood_Group, Value = m.BloodGroupId.ToString() });
+            //    ViewBag.bloodGrupo = BloodGroupList;
+            //}
+
+            //otra forma de cargar el combo factor
+            var bloodFact = db.BloodFactors.ToList();
+
+            List<SelectListItem> BloodFactorList = new List<SelectListItem>();
+            foreach (var m in bloodFact)
+            {
+                BloodFactorList.Add(new SelectListItem { Text = m.Blood_Factor, Value = m.BloodFactorId.ToString() });
+                ViewBag.bloodFact = BloodFactorList;
+            }
+
+            
+
+            //List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
+            //ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
+
+            //List<Institution> InstitutionList = db.Institutions.ToList();
+            //ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
 
             return View();
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AgregarSolicitud( RequestDonor a)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            try
-            {
-                using (var db = new ContaConmigoEntities1())
-                {
-                    a.Completed = "false";
-                    db.RequestDonors.Add(a);
-                    db.SaveChanges();
-                    return RedirectToAction("ListadoSolicitudDonante");
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Error al agregar una solicitud " + ex.Message);
-                return View();
-            }
-        }
-
-
-
         public JsonResult GetCityList(int ProvinceId)
         {
             ContaConmigoEntities1 db = new ContaConmigoEntities1();
@@ -89,6 +76,70 @@ namespace ContaConmigo.Controllers
             List<Institution> InstitutionList = db.Institutions.Where(x => x.CityId == CityId).ToList();
             return Json(InstitutionList, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AgregarSolicitud(RequestDonor a)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            try
+            {
+                using (ContaConmigoEntities1 db = new ContaConmigoEntities1())
+                {
+                    List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
+                    ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
+                    a.Completed = "false";
+                    db.RequestDonors.Add(a);
+                    db.SaveChanges();
+                    return RedirectToAction("ListadoSolicitudDonante");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al agregar una solicitud " + ex.Message);
+                return View();
+            }
+        }
+
+
+        //public JsonResult GetCityList(int pcia)
+        //{
+        //    ContaConmigoEntities1 db = new ContaConmigoEntities1();
+        //    //db.Configuration.ProxyCreationEnabled = false;
+        //    var city = db.Cities.Where(x => x.ProvinceId == pcia).ToList();
+
+        //    List<SelectListItem> licity = new List<SelectListItem>();
+        //    licity.Add(new SelectListItem { Text = "--Ciudad--", Value = "0" });
+        //    if (city != null)
+        //    {
+        //        foreach (var x in city)
+        //        {
+        //            licity.Add(new SelectListItem { Text = x.CityName, Value = x.Id.ToString() });
+        //        }
+        //    }
+        //    return Json(new SelectList(licity, "Value", "Text", JsonRequestBehavior.AllowGet));
+        //}
+        //public JsonResult GetInstitutionList(int id)
+        //{
+        //    ContaConmigoEntities1 db = new ContaConmigoEntities1();
+        //    //db.Configuration.ProxyCreationEnabled = false;
+        //    var inst = db.Institutions.Where(x => x.CityId == id).ToList();
+        //    List<SelectListItem> liInst = new List<SelectListItem>();
+
+        //    liInst.Add(new SelectListItem { Text = "--Institución--", Value = "0" });
+        //    if (inst != null)
+        //    {
+        //        foreach (var l in inst)
+        //        {
+        //            liInst.Add(new SelectListItem { Text = l.InstitutionDescription, Value = l.InstitutionId.ToString() });
+        //        }
+        //    }
+        //    return Json(new SelectList(liInst, "Value", "Text", JsonRequestBehavior.AllowGet));
+        //}
+
 
 
         public ActionResult Detalle(int id)
@@ -108,7 +159,7 @@ namespace ContaConmigo.Controllers
                 ModelState.AddModelError("", "Error al ver el detalle de una solicitud " + ex.Message);
                 return View();
             }
-           
+
         }
 
 
@@ -172,10 +223,10 @@ namespace ContaConmigo.Controllers
                 using (ContaConmigoEntities1 db = new ContaConmigoEntities1())
                 {
                     RequestDonor soldon = db.RequestDonors.Where(a => a.RequestDonorId == id).FirstOrDefault();
-                    
+
                     List<Province> ProvinceList = db.Provinces.ToList();
                     ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
-                    
+
 
                     //List<City> CityList = db.Cities.ToList();
                     //ViewBag.CityList = new SelectList(CityList, "CityId", "CityName");
@@ -191,7 +242,7 @@ namespace ContaConmigo.Controllers
 
                     List<Institution> InstitutionList = db.Institutions.ToList();
                     ViewBag.InstitutionList = new SelectList(InstitutionList, "InstitutionId", "InstitutionDescription");
-                  
+
                     return View(soldon);
                 }
             }
@@ -212,7 +263,7 @@ namespace ContaConmigo.Controllers
             {
                 using (var db = new ContaConmigoEntities1())
                 {
-                     RequestDonor reqdon = db.RequestDonors.Find(rd.RequestDonorId);
+                    RequestDonor reqdon = db.RequestDonors.Find(rd.RequestDonorId);
                     if (reqdon != null)
                     {
                         reqdon.Name_Request_Don = rd.Name_Request_Don;

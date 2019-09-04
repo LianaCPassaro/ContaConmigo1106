@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ContaConmigo.Model
 {
@@ -17,7 +18,7 @@ namespace ContaConmigo.Model
         [Display(Name = "Apellido")]
         public string Last_Name_Request_Don { get; set; }
         [Required]
-        [Display(Name = "Fecha de Nacimiento")]
+        [Display(Name = "Nacimiento")]
         [DataType(DataType.Date)]
         public System.DateTime Birthday { get; set; }
         [Required]
@@ -67,4 +68,5 @@ namespace ContaConmigo.Model
         [Display(Name = "Nombre Completo")]
         public string NombreCompleto { get { return Last_Name_Request_Don + ", " + Name_Request_Don; } }
     }
+
 }
