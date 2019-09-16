@@ -33,11 +33,12 @@ namespace ContaConmigo.Model
         public string InstitutionDescription { get; set; }
         public byte[] Photo { get; set; }
         public int UserId { get; set; }
-        public string cityName { get; set; }
         public int Id { get; set; }
+        //public string cityName { get; set; }
+        //public int Id { get; set; }
         public int BloodGroupId { get; set; }
-        public IEnumerable<SelectListItem> BloodFactorList { get; set; }
-        public IEnumerable<SelectListItem> BloodGroupList { get; set; }
+        public int BloodFactorId { get; set; }
+
 
         public virtual BloodFactor BloodFactor { get; set; }
         public virtual BloodGroup BloodGroup { get; set; }

@@ -25,11 +25,18 @@ namespace ContaConmigo.Model
         [Display(Name = "Teléfono")]
         public string Phone_Number { get; set; }
         [Required]
+        [Display(Name = "Id Provincia")]
+        public string ProvinceId { get; set; }
         [Display(Name = "Provincia")]
-        public string ProvinceDescription { get; set; } 
+        public string ProvinceDescription { get; set; }
         [Required]
         [Display(Name = "Ciudad")]
         public int CityId { get; set; }
+        [Required]
+        [Display(Name = "Institución")]
+        public int InstitutionId { get; set; }
+        [Display(Name = "Ciudad")]
+        public int Id { get; set; }
         [Required]
         [Display(Name = "Fecha Límite Recepción")]
         [DataType(DataType.Date)]
@@ -37,18 +44,17 @@ namespace ContaConmigo.Model
         [Required]
         [Display(Name = "Cant. Donantes Requeridos")]
         public int AmountDonor { get; set; }
-        [Required]
-        [Display(Name = "Institución")]
-        public int InstitutionId { get; set; }
+
         [Required]
         [Display(Name = "Grupo Sanguíneo")]
-        public int GroupId { get; set; }
+        public int BloodGroupId { get; set; }
         [Required]
         [Display(Name = "Factor Sanguíneo")]
-        public int FactorId { get; set; }
+        public int BloodFactorId { get; set; }
 
         [Display(Name = "Foto")]
         public byte[] Photo { get; set; }
+        [Required]
         [Display(Name = "Comentarios")]
         public string Comment { get; set; }
 
@@ -64,7 +70,6 @@ namespace ContaConmigo.Model
     public partial class RequestDonor //partial se usa para 
 
     {
-        [Required]
         [Display(Name = "Nombre Completo")]
         public string NombreCompleto { get { return Last_Name_Request_Don + ", " + Name_Request_Don; } }
     }

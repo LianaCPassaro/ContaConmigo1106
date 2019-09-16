@@ -18,8 +18,9 @@ namespace ContaConmigo.Controllers
         public ActionResult ListadoSolicitudDonante()
         {
             ContaConmigoEntities1 db = new ContaConmigoEntities1();
+            List<RequestDonor> requestDonors = db.RequestDonors.ToList();
 
-            return View(db.RequestDonors.ToList());
+            return View(requestDonors);
         }
         [HttpGet]
         public ActionResult AgregarSolicitud()
@@ -31,6 +32,9 @@ namespace ContaConmigo.Controllers
             List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
             ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
 
+
+            List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
+            ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
             //otra forma de cargar el combo grupo
             //var bloodGrupo = db.BloodGroups.ToList();
 
@@ -42,16 +46,16 @@ namespace ContaConmigo.Controllers
             //}
 
             //otra forma de cargar el combo factor
-            var bloodFact = db.BloodFactors.ToList();
+            //var bloodFact = db.BloodFactors.ToList();
 
-            List<SelectListItem> BloodFactorList = new List<SelectListItem>();
-            foreach (var m in bloodFact)
-            {
-                BloodFactorList.Add(new SelectListItem { Text = m.Blood_Factor, Value = m.BloodFactorId.ToString() });
-                ViewBag.bloodFact = BloodFactorList;
-            }
+            //List<SelectListItem> BloodFactorList = new List<SelectListItem>();
+            //foreach (var m in bloodFact)
+            //{
+            //    BloodFactorList.Add(new SelectListItem { Text = m.Blood_Factor, Value = m.BloodFactorId.ToString() });
+            //    ViewBag.bloodFact = BloodFactorList;
+            //}
 
-            
+
 
             //List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
             //ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
@@ -81,27 +85,30 @@ namespace ContaConmigo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AgregarSolicitud(RequestDonor a)
         {
-            if (!ModelState.IsValid)
+                    if (ModelState.IsValid)
             {
-                return View();
-            }
-            try
-            {
-                using (ContaConmigoEntities1 db = new ContaConmigoEntities1())
+                try
                 {
-                    List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
-                    ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
-                    a.Completed = "false";
-                    db.RequestDonors.Add(a);
-                    db.SaveChanges();
-                    return RedirectToAction("ListadoSolicitudDonante");
+                    using (var db = new ContaConmigoEntities1())
+                    {
+                        
+                        a.Completed = "false";
+                        a.UserId = 1;
+                        db.RequestDonors.Add(a);
+                        db.SaveChanges();
+                        return RedirectToAction("ListadoSolicitudDonante");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Error al agregar una solicitud " + ex.Message);
+                    return View();
+                }
+
             }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Error al agregar una solicitud " + ex.Message);
-                return View();
-            }
+            else
+            { return View(); }
+            
         }
 
 
@@ -274,8 +281,8 @@ namespace ContaConmigo.Controllers
                         reqdon.Last_Date_Replacement = rd.Last_Date_Replacement;
                         reqdon.AmountDonor = rd.AmountDonor;
                         reqdon.InstitutionId = rd.InstitutionId;
-                        reqdon.GroupId = rd.GroupId;
-                        reqdon.FactorId = rd.FactorId;
+                        reqdon.BloodGroupId = rd.BloodGroupId;
+                        reqdon.BloodFactorId = rd.BloodFactorId;
                         reqdon.Comment = rd.Comment;
                         reqdon.Phone_Number = rd.Phone_Number;
                         reqdon.Birthday = rd.Birthday;
