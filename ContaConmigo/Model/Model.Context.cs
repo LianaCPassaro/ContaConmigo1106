@@ -13,10 +13,10 @@ namespace ContaConmigo.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ContaConmigoEntities1 : DbContext
+    public partial class ContaConmigoEntities : DbContext
     {
-        public ContaConmigoEntities1()
-            : base("name=ContaConmigoEntities1")
+        public ContaConmigoEntities()
+            : base("name=ContaConmigoEntities")
         {
         }
     
@@ -32,6 +32,7 @@ namespace ContaConmigo.Model
         public virtual DbSet<Institution> Institutions { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<RequestDonor> RequestDonors { get; set; }
+        public virtual DbSet<RequestDonorBlood> RequestDonorBloods { get; set; }
         public virtual DbSet<UserContaConmigo> UserContaConmigoes { get; set; }
     }
 }

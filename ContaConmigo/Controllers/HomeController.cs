@@ -43,7 +43,7 @@ namespace ContaConmigo.Controllers
         public ActionResult SignUp()
         {
             ViewBag.Message = "Logueo de Usuario.";
-            ContaConmigoEntities1 db = new ContaConmigoEntities1();
+            ContaConmigoEntities db = new ContaConmigoEntities();
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace ContaConmigo.Controllers
             }
             try
             {
-                using (var db = new ContaConmigoEntities1())
+                using (var db = new ContaConmigoEntities())
                 {
 
                     db.UserContaConmigoes.Add(a);

@@ -17,7 +17,7 @@ namespace ContaConmigo.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BloodFactor()
         {
-            this.RequestDonors = new HashSet<RequestDonor>();
+            this.RequestDonorBloods = new HashSet<RequestDonorBlood>();
             this.Donors = new HashSet<Donor>();
         }
     
@@ -25,7 +25,7 @@ namespace ContaConmigo.Model
         public string Blood_Factor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequestDonor> RequestDonors { get; set; }
+        public virtual ICollection<RequestDonorBlood> RequestDonorBloods { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Donor> Donors { get; set; }
     }

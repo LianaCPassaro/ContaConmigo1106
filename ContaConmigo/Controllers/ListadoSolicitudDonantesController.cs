@@ -17,7 +17,7 @@ namespace ContaConmigo.Controllers
         // GET: SolicitudDonante
         public ActionResult ListadoSolicitudDonante()
         {
-            ContaConmigoEntities1 db = new ContaConmigoEntities1();
+            ContaConmigoEntities db = new ContaConmigoEntities();
             List<RequestDonor> requestDonors = db.RequestDonors.ToList();
 
             return View(requestDonors);
@@ -25,7 +25,7 @@ namespace ContaConmigo.Controllers
         [HttpGet]
         public ActionResult AgregarSolicitud()
         {
-            ContaConmigoEntities1 db = new ContaConmigoEntities1();
+            ContaConmigoEntities db = new ContaConmigoEntities();
             List<Province> ProvinceList = db.Provinces.ToList();
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
 
@@ -67,7 +67,7 @@ namespace ContaConmigo.Controllers
         }
         public JsonResult GetCityList(int ProvinceId)
         {
-            ContaConmigoEntities1 db = new ContaConmigoEntities1();
+            ContaConmigoEntities db = new ContaConmigoEntities();
             db.Configuration.ProxyCreationEnabled = false;
             List<City> CityList = db.Cities.Where(x => x.ProvinceId == ProvinceId).ToList();
             return Json(CityList, JsonRequestBehavior.AllowGet);
@@ -75,7 +75,7 @@ namespace ContaConmigo.Controllers
 
         public JsonResult GetInstitutionList(int CityId)
         {
-            ContaConmigoEntities1 db = new ContaConmigoEntities1();
+            ContaConmigoEntities db = new ContaConmigoEntities();
             db.Configuration.ProxyCreationEnabled = false;
             List<Institution> InstitutionList = db.Institutions.Where(x => x.CityId == CityId).ToList();
             return Json(InstitutionList, JsonRequestBehavior.AllowGet);
@@ -89,7 +89,7 @@ namespace ContaConmigo.Controllers
             {
                 try
                 {
-                    using (var db = new ContaConmigoEntities1())
+                    using (var db = new ContaConmigoEntities())
                     {
                         
                         a.Completed = "false";
@@ -153,7 +153,7 @@ namespace ContaConmigo.Controllers
         {
             try
             {
-                using (var db = new ContaConmigoEntities1())
+                using (var db = new ContaConmigoEntities())
                 {
                     RequestDonor soldon = db.RequestDonors.Find(id);
                     return View(soldon);
@@ -227,7 +227,7 @@ namespace ContaConmigo.Controllers
         {
             try
             {
-                using (ContaConmigoEntities1 db = new ContaConmigoEntities1())
+                using (ContaConmigoEntities db = new ContaConmigoEntities())
                 {
                     RequestDonor soldon = db.RequestDonors.Where(a => a.RequestDonorId == id).FirstOrDefault();
 
@@ -268,7 +268,7 @@ namespace ContaConmigo.Controllers
         {
             try
             {
-                using (var db = new ContaConmigoEntities1())
+                using (var db = new ContaConmigoEntities())
                 {
                     RequestDonor reqdon = db.RequestDonors.Find(rd.RequestDonorId);
                     if (reqdon != null)
@@ -281,8 +281,8 @@ namespace ContaConmigo.Controllers
                         reqdon.Last_Date_Replacement = rd.Last_Date_Replacement;
                         reqdon.AmountDonor = rd.AmountDonor;
                         reqdon.InstitutionId = rd.InstitutionId;
-                        reqdon.BloodGroupId = rd.BloodGroupId;
-                        reqdon.BloodFactorId = rd.BloodFactorId;
+                        //reqdon.BloodGroupId = rd.BloodGroupId;
+                        //reqdon.BloodFactorId = rd.BloodFactorId;
                         reqdon.Comment = rd.Comment;
                         reqdon.Phone_Number = rd.Phone_Number;
                         reqdon.Birthday = rd.Birthday;
@@ -307,7 +307,7 @@ namespace ContaConmigo.Controllers
 
         public ActionResult EliminarSolicitud(int id)
         {
-            using (var db = new ContaConmigoEntities1())
+            using (var db = new ContaConmigoEntities())
             {
                 RequestDonor reqdon = db.RequestDonors.Find(id);
                 db.RequestDonors.Remove(reqdon);

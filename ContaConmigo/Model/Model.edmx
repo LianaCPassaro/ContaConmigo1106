@@ -70,14 +70,21 @@
           <Property Name="Last_Date_Replacement" Type="date" Nullable="false" />
           <Property Name="AmountDonor" Type="int" Nullable="false" />
           <Property Name="InstitutionId" Type="int" Nullable="false" />
-          <Property Name="GroupId" Type="int" Nullable="false" />
-          <Property Name="FactorId" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Phone_Number" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="Birthday" Type="date" Nullable="false" />
           <Property Name="Completed" Type="varchar" MaxLength="255" />
           <Property Name="Photo" Type="image" />
           <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestDonorBlood">
+          <Key>
+            <PropertyRef Name="RequestDonorBloodId" />
+          </Key>
+          <Property Name="RequestDonorBloodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestDonorId" Type="int" Nullable="false" />
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="FactorId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserContaConmigo">
           <Key>
@@ -139,27 +146,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RequestDo__Facto__3B40CD36">
+        <Association Name="FK__RequestDo__Facto__793DFFAF">
           <End Role="BloodFactor" Type="Self.BloodFactor" Multiplicity="1" />
-          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
+          <End Role="RequestDonorBlood" Type="Self.RequestDonorBlood" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BloodFactor">
               <PropertyRef Name="BloodFactorId" />
             </Principal>
-            <Dependent Role="RequestDonor">
+            <Dependent Role="RequestDonorBlood">
               <PropertyRef Name="FactorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RequestDo__Group__3A4CA8FD">
+        <Association Name="FK__RequestDo__Group__7849DB76">
           <End Role="BloodGroup" Type="Self.BloodGroup" Multiplicity="1" />
-          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
+          <End Role="RequestDonorBlood" Type="Self.RequestDonorBlood" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BloodGroup">
               <PropertyRef Name="BloodGroupId" />
             </Principal>
-            <Dependent Role="RequestDonor">
+            <Dependent Role="RequestDonorBlood">
               <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestDo__Reque__7755B73D">
+          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="1" />
+          <End Role="RequestDonorBlood" Type="Self.RequestDonorBlood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestDonor">
+              <PropertyRef Name="RequestDonorId" />
+            </Principal>
+            <Dependent Role="RequestDonorBlood">
+              <PropertyRef Name="RequestDonorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -207,6 +226,7 @@
           <EntitySet Name="Institution" EntityType="Self.Institution" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestDonor" EntityType="Self.RequestDonor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestDonorBlood" EntityType="Self.RequestDonorBlood" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserContaConmigo" EntityType="Self.UserContaConmigo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__City__ProvinceId__4F7CD00D" Association="Self.FK__City__ProvinceId__4F7CD00D">
             <End Role="Province" EntitySet="Province" />
@@ -224,13 +244,17 @@
             <End Role="City" EntitySet="City" />
             <End Role="RequestDonor" EntitySet="RequestDonor" />
           </AssociationSet>
-          <AssociationSet Name="FK__RequestDo__Facto__3B40CD36" Association="Self.FK__RequestDo__Facto__3B40CD36">
+          <AssociationSet Name="FK__RequestDo__Facto__793DFFAF" Association="Self.FK__RequestDo__Facto__793DFFAF">
             <End Role="BloodFactor" EntitySet="BloodFactor" />
-            <End Role="RequestDonor" EntitySet="RequestDonor" />
+            <End Role="RequestDonorBlood" EntitySet="RequestDonorBlood" />
           </AssociationSet>
-          <AssociationSet Name="FK__RequestDo__Group__3A4CA8FD" Association="Self.FK__RequestDo__Group__3A4CA8FD">
+          <AssociationSet Name="FK__RequestDo__Group__7849DB76" Association="Self.FK__RequestDo__Group__7849DB76">
             <End Role="BloodGroup" EntitySet="BloodGroup" />
+            <End Role="RequestDonorBlood" EntitySet="RequestDonorBlood" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestDo__Reque__7755B73D" Association="Self.FK__RequestDo__Reque__7755B73D">
             <End Role="RequestDonor" EntitySet="RequestDonor" />
+            <End Role="RequestDonorBlood" EntitySet="RequestDonorBlood" />
           </AssociationSet>
           <AssociationSet Name="FK_Donor_Factor" Association="Self.FK_Donor_Factor">
             <End Role="BloodFactor" EntitySet="BloodFactor" />
@@ -256,7 +280,7 @@
           </Key>
           <Property Name="BloodFactorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Blood_Factor" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="RequestDonors" Relationship="Self.FK__RequestDo__Facto__3B40CD36" FromRole="BloodFactor" ToRole="RequestDonor" />
+          <NavigationProperty Name="RequestDonorBloods" Relationship="Self.FK__RequestDo__Facto__793DFFAF" FromRole="BloodFactor" ToRole="RequestDonorBlood" />
           <NavigationProperty Name="Donors" Relationship="Self.FK_Donor_Factor" FromRole="BloodFactor" ToRole="Donor" />
         </EntityType>
         <EntityType Name="BloodGroup">
@@ -265,7 +289,7 @@
           </Key>
           <Property Name="BloodGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Blood_Group" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="RequestDonors" Relationship="Self.FK__RequestDo__Group__3A4CA8FD" FromRole="BloodGroup" ToRole="RequestDonor" />
+          <NavigationProperty Name="RequestDonorBloods" Relationship="Self.FK__RequestDo__Group__7849DB76" FromRole="BloodGroup" ToRole="RequestDonorBlood" />
           <NavigationProperty Name="Donors" Relationship="Self.FK_Donor_Group" FromRole="BloodGroup" ToRole="Donor" />
         </EntityType>
         <EntityType Name="City">
@@ -329,18 +353,27 @@
           <Property Name="Last_Date_Replacement" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="AmountDonor" Type="Int32" Nullable="false" />
           <Property Name="InstitutionId" Type="Int32" Nullable="false" />
-          <Property Name="GroupId" Type="Int32" Nullable="false" />
-          <Property Name="FactorId" Type="Int32" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Phone_Number" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Completed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BloodFactor" Relationship="Self.FK__RequestDo__Facto__3B40CD36" FromRole="RequestDonor" ToRole="BloodFactor" />
-          <NavigationProperty Name="BloodGroup" Relationship="Self.FK__RequestDo__Group__3A4CA8FD" FromRole="RequestDonor" ToRole="BloodGroup" />
           <NavigationProperty Name="City" Relationship="Self.FK__RequestDo__CityI__3864608B" FromRole="RequestDonor" ToRole="City" />
           <NavigationProperty Name="Institution" Relationship="Self.FK_Institution_Req_Donor" FromRole="RequestDonor" ToRole="Institution" />
+          <NavigationProperty Name="RequestDonorBloods" Relationship="Self.FK__RequestDo__Reque__7755B73D" FromRole="RequestDonor" ToRole="RequestDonorBlood" />
+        </EntityType>
+        <EntityType Name="RequestDonorBlood">
+          <Key>
+            <PropertyRef Name="RequestDonorBloodId" />
+          </Key>
+          <Property Name="RequestDonorBloodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestDonorId" Type="Int32" Nullable="false" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="FactorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BloodFactor" Relationship="Self.FK__RequestDo__Facto__793DFFAF" FromRole="RequestDonorBlood" ToRole="BloodFactor" />
+          <NavigationProperty Name="BloodGroup" Relationship="Self.FK__RequestDo__Group__7849DB76" FromRole="RequestDonorBlood" ToRole="BloodGroup" />
+          <NavigationProperty Name="RequestDonor" Relationship="Self.FK__RequestDo__Reque__7755B73D" FromRole="RequestDonorBlood" ToRole="RequestDonor" />
         </EntityType>
         <EntityType Name="UserContaConmigo">
           <Key>
@@ -354,14 +387,14 @@
           <Property Name="PasswordUser" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ConfirmPasswordUser" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <Association Name="FK__RequestDo__Facto__3B40CD36">
+        <Association Name="FK__RequestDo__Facto__793DFFAF">
           <End Role="BloodFactor" Type="Self.BloodFactor" Multiplicity="1" />
-          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
+          <End Role="RequestDonorBlood" Type="Self.RequestDonorBlood" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BloodFactor">
               <PropertyRef Name="BloodFactorId" />
             </Principal>
-            <Dependent Role="RequestDonor">
+            <Dependent Role="RequestDonorBlood">
               <PropertyRef Name="FactorId" />
             </Dependent>
           </ReferentialConstraint>
@@ -378,14 +411,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RequestDo__Group__3A4CA8FD">
+        <Association Name="FK__RequestDo__Group__7849DB76">
           <End Role="BloodGroup" Type="Self.BloodGroup" Multiplicity="1" />
-          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="*" />
+          <End Role="RequestDonorBlood" Type="Self.RequestDonorBlood" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BloodGroup">
               <PropertyRef Name="BloodGroupId" />
             </Principal>
-            <Dependent Role="RequestDonor">
+            <Dependent Role="RequestDonorBlood">
               <PropertyRef Name="GroupId" />
             </Dependent>
           </ReferentialConstraint>
@@ -462,7 +495,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ContaConmigoEntities1" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK__RequestDo__Reque__7755B73D">
+          <End Role="RequestDonor" Type="Self.RequestDonor" Multiplicity="1" />
+          <End Role="RequestDonorBlood" Type="Self.RequestDonorBlood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestDonor">
+              <PropertyRef Name="RequestDonorId" />
+            </Principal>
+            <Dependent Role="RequestDonorBlood">
+              <PropertyRef Name="RequestDonorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContaConmigoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BloodFactors" EntityType="Self.BloodFactor" />
           <EntitySet Name="BloodGroups" EntityType="Self.BloodGroup" />
           <EntitySet Name="Cities" EntityType="Self.City" />
@@ -470,18 +515,19 @@
           <EntitySet Name="Institutions" EntityType="Self.Institution" />
           <EntitySet Name="Provinces" EntityType="Self.Province" />
           <EntitySet Name="RequestDonors" EntityType="Self.RequestDonor" />
+          <EntitySet Name="RequestDonorBloods" EntityType="Self.RequestDonorBlood" />
           <EntitySet Name="UserContaConmigoes" EntityType="Self.UserContaConmigo" />
-          <AssociationSet Name="FK__RequestDo__Facto__3B40CD36" Association="Self.FK__RequestDo__Facto__3B40CD36">
+          <AssociationSet Name="FK__RequestDo__Facto__793DFFAF" Association="Self.FK__RequestDo__Facto__793DFFAF">
             <End Role="BloodFactor" EntitySet="BloodFactors" />
-            <End Role="RequestDonor" EntitySet="RequestDonors" />
+            <End Role="RequestDonorBlood" EntitySet="RequestDonorBloods" />
           </AssociationSet>
           <AssociationSet Name="FK_Donor_Factor" Association="Self.FK_Donor_Factor">
             <End Role="BloodFactor" EntitySet="BloodFactors" />
             <End Role="Donor" EntitySet="Donors" />
           </AssociationSet>
-          <AssociationSet Name="FK__RequestDo__Group__3A4CA8FD" Association="Self.FK__RequestDo__Group__3A4CA8FD">
+          <AssociationSet Name="FK__RequestDo__Group__7849DB76" Association="Self.FK__RequestDo__Group__7849DB76">
             <End Role="BloodGroup" EntitySet="BloodGroups" />
-            <End Role="RequestDonor" EntitySet="RequestDonors" />
+            <End Role="RequestDonorBlood" EntitySet="RequestDonorBloods" />
           </AssociationSet>
           <AssociationSet Name="FK_Donor_Group" Association="Self.FK_Donor_Group">
             <End Role="BloodGroup" EntitySet="BloodGroups" />
@@ -507,13 +553,17 @@
             <End Role="Institution" EntitySet="Institutions" />
             <End Role="RequestDonor" EntitySet="RequestDonors" />
           </AssociationSet>
+          <AssociationSet Name="FK__RequestDo__Reque__7755B73D" Association="Self.FK__RequestDo__Reque__7755B73D">
+            <End Role="RequestDonor" EntitySet="RequestDonors" />
+            <End Role="RequestDonorBlood" EntitySet="RequestDonorBloods" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ContaConmigoModelStoreContainer" CdmEntityContainer="ContaConmigoEntities1">
+        <EntityContainerMapping StorageEntityContainer="ContaConmigoModelStoreContainer" CdmEntityContainer="ContaConmigoEntities">
           <EntitySetMapping Name="BloodFactors">
             <EntityTypeMapping TypeName="ContaConmigoModel.BloodFactor">
               <MappingFragment StoreEntitySet="BloodFactor">
@@ -584,14 +634,22 @@
                 <ScalarProperty Name="Last_Date_Replacement" ColumnName="Last_Date_Replacement" />
                 <ScalarProperty Name="AmountDonor" ColumnName="AmountDonor" />
                 <ScalarProperty Name="InstitutionId" ColumnName="InstitutionId" />
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-                <ScalarProperty Name="FactorId" ColumnName="FactorId" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="Completed" ColumnName="Completed" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestDonorBloods">
+            <EntityTypeMapping TypeName="ContaConmigoModel.RequestDonorBlood">
+              <MappingFragment StoreEntitySet="RequestDonorBlood">
+                <ScalarProperty Name="RequestDonorBloodId" ColumnName="RequestDonorBloodId" />
+                <ScalarProperty Name="RequestDonorId" ColumnName="RequestDonorId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="FactorId" ColumnName="FactorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
