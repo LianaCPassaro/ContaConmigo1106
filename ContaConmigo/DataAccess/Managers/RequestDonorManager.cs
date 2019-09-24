@@ -8,32 +8,34 @@ namespace ContaConmigo.DataAccess.Managers
 {
     public class RequestDonorManager
     {
-        public static void AgregarSolicitud(string Name_Request_Don, string Last_Name_Request_Don, int CityId, DateTime Last_Date_Replacement, int AmountDonor, int InstitutionId, string Comment, string Phone_Number, DateTime Birthday, string Completed, int UserId, List<int> bloodGroupFactorItem)
+        public static void AgregarSolicitud(string name_Request_Don, string last_Name_Request_Don, int cityId, 
+            DateTime last_Date_Replacement, int amountDonor, int institutionId, string comment, string phone_Number, 
+            DateTime birthday, string completed, int userId, List<int> bloodGroupFactorItem)
         {
-            using (var db = new ContaConmigoEntities())
+            using (ContaConmigoEntities context = new ContaConmigoEntities())
             {
-                RequestDonor model = new RequestDonor()
+                var requestDonor = new RequestDonor()
                 {
-                    Name_Request_Don = model.Name_Request_Don,
-                    Last_Name_Request_Don = model.Last_Name_Request_Don,
-                    CityId = model.CityId,
-                    Last_Date_Replacement = model.Last_Date_Replacement,
-                    AmountDonor = model.AmountDonor,
-                    InstitutionId = model.InstitutionId,
-                    Comment = model.Comment,
-                    Phone_Number = model.Phone_Number,
-                    Birthday = model.Birthday,
-                    Completed = model.Completed,
-                    UserId = model.UserId
+                    Name_Request_Don = name_Request_Don,
+                    Last_Name_Request_Don = last_Name_Request_Don,
+                    CityId = cityId,
+                    Last_Date_Replacement = last_Date_Replacement,
+                    AmountDonor = amountDonor,
+                    InstitutionId = institutionId,
+                    Comment = comment,
+                    Phone_Number = phone_Number,
+                    Birthday = birthday,
+                    Completed = completed,
+                    UserId = userId
                 };
 
                 foreach (var factorID in bloodGroupFactorItem)
                 {
-                    var factor = model.BloodGroupFactorItems.Find(factorID);
-                    model.BloodGroupFactorItems.Add(factor);
+                    var factor = context.RequestDonorBloods.Find(factorID);
+                    requestDonor.RequestDonorBloods.Add(factor);
                 }
-                db.RequestDonors.Add(model);
-                db.SaveChanges();
+                context.RequestDonors.Add(requestDonor);
+                context.SaveChanges();
             }
         }
     }
