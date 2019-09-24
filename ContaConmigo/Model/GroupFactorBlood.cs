@@ -12,21 +12,21 @@ namespace ContaConmigo.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class BloodFactor
+    public partial class GroupFactorBlood
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BloodFactor()
+        public GroupFactorBlood()
         {
-            this.RequestDonorBloods = new HashSet<RequestDonorBlood>();
             this.Donors = new HashSet<Donor>();
+            this.RequestDonorBloods = new HashSet<RequestDonorBlood>();
         }
     
-        public int BloodFactorId { get; set; }
-        public string Blood_Factor { get; set; }
+        public int GroupFactorBloodId { get; set; }
+        public string GroupFactorDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequestDonorBlood> RequestDonorBloods { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Donor> Donors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequestDonorBlood> RequestDonorBloods { get; set; }
     }
 }

@@ -18,34 +18,37 @@ namespace ContaConmigo.Model
         public RequestDonor()
         {
             this.RequestDonorBloods = new HashSet<RequestDonorBlood>();
+            BloodGroupFactorItems = new List<CheckBoxListItem>();
         }
     
         public int RequestDonorId { get; set; }
         public string Name_Request_Don { get; set; }
         public string Last_Name_Request_Don { get; set; }
+        public int Id { get; set; }
         public int CityId { get; set; }
         public System.DateTime Last_Date_Replacement { get; set; }
         public int AmountDonor { get; set; }
         public int InstitutionId { get; set; }
+        public string InstitutionDescription { get; set; }
         public string Comment { get; set; }
         public string Phone_Number { get; set; }
         public System.DateTime Birthday { get; set; }
         public string Completed { get; set; }
         public byte[] Photo { get; set; }
         public int UserId { get; set; }
-        public string ProvinceDescription { get; set; }
         public int ProvinceId { get; set; }
-        public string InstitutionDescription { get; set; }
-        public int Id { get; set; }
-        public int GroupId { get; set; }
-        public int FactorId { get; set; }
+        public string ProvinceDescription { get; set; }
+        public int GroupFactorBloodId { get; set; }
+        public string GroupFactorDescription { get; set; }
 
         public virtual City City { get; set; }
         public virtual Institution Institution { get; set; }
         public virtual Province Province { get; set; }
+        public virtual GroupFactorBlood GroupFactorBlood { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestDonorBlood> RequestDonorBloods { get; set; }
-        public virtual BloodFactor BloodFactor { get; set; }
-        public virtual BloodGroup BloodGroup { get; set; }
+
+        public List<CheckBoxListItem> BloodGroupFactorItems { get; set; }
     }
 }

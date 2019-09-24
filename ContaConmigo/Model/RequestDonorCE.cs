@@ -46,11 +46,8 @@ namespace ContaConmigo.Model
         public int AmountDonor { get; set; }
 
         [Required]
-        [Display(Name = "Grupo Sanguíneo")]
-        public int BloodGroupId { get; set; }
-        [Required]
-        [Display(Name = "Factor Sanguíneo")]
-        public int BloodFactorId { get; set; }
+        [Display(Name = "Grupo y Factor")]
+        public int GroupFactorBloodId { get; set; }
 
         [Display(Name = "Foto")]
         public byte[] Photo { get; set; }

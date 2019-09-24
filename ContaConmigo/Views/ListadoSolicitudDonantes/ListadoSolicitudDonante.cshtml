@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="with-device-with" />
     @model IEnumerable<ContaConmigo.Model.RequestDonor>
 
@@ -9,14 +9,13 @@
         ViewBag.Title = "Listado de Solicitudes de Donantes";
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
- </head>
+</head>
 <body>
-
-    <h2>Listado de Solicitudes de Donantes</h2> 
+    <h2>Listado de Solicitudes de Donantes</h2>
 
     <p>
         @Html.ActionLink("Crear Nueva Solicitud", "AgregarSolicitud")
-  </p>
+    </p>
     <table class="table">
         <tr>
             <th>
@@ -26,10 +25,10 @@
                 @Html.DisplayNameFor(model => model.Birthday)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProvinceDescription)     
+                @Html.DisplayNameFor(model => model.ProvinceDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CityId)              
+                @Html.DisplayNameFor(model => model.CityId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Last_Date_Replacement)
@@ -41,63 +40,50 @@
                 @Html.DisplayNameFor(model => model.InstitutionDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GroupId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FactorId)
+                @Html.DisplayNameFor(model => model.GroupFactorBloodId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Completed)
             </th>
 
-            <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCompleto)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.Birthday)*@
-                @item.Birthday.ToShortDateString()
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProvinceDescription)
-            </td>
-
-            <td>
-                
-                @Html.DisplayFor(modelItem => item.City.CityName)
-            </td>
-
-            <td>
-                @item.Last_Date_Replacement.ToShortDateString()
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AmountDonor)
-            </td>
-            <td>
-                @*@ViewBag.InstitutionList.InstitutionDescription*@
-                @Html.DisplayFor(modelItem => item.Institution.InstitutionDescription)
-     
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BloodGroup.Blood_Group)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BloodFactor.Blood_Factor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
-                @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
-                @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id = item.RequestDonorId }, new { @class = "aElimina" })
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td>
+                    @item.Birthday.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProvinceDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City.CityName)
+                </td>
+                <td>
+                    @item.Last_Date_Replacement.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountDonor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Institution.InstitutionDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupFactorDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Completed)
+                </td>
+                <td>
+                    @Html.ActionLink("+ Info", "Detalle", new { id = item.RequestDonorId })
+                    @Html.ActionLink("Editar", "EditarSolicitud", new { id = item.RequestDonorId })
+                    @Html.ActionLink("Eliminar", "EliminarSolicitud", new { id = item.RequestDonorId }, new { @class = "aElimina" })
+                </td>
+            </tr>
         }
 
     </table>
@@ -110,5 +96,5 @@
             });
         </script>
     }
-</body> 
+</body>
 </html>

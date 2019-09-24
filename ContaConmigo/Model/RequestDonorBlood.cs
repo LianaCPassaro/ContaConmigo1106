@@ -16,11 +16,9 @@ namespace ContaConmigo.Model
     {
         public int RequestDonorBloodId { get; set; }
         public int RequestDonorId { get; set; }
-        public int GroupId { get; set; }
-        public int FactorId { get; set; }
+        public int BloodGroupFactorId { get; set; }
     
-        public virtual BloodFactor BloodFactor { get; set; }
-        public virtual BloodGroup BloodGroup { get; set; }
+        public virtual GroupFactorBlood GroupFactorBlood { get; set; }
         public virtual RequestDonor RequestDonor { get; set; }
     }
 }
