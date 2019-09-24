@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System.Reflection.Emit;
+using ContaConmigo.DataAccess.Managers;
 //using ContaConmigo.DataAccess.Managers;
 
 namespace ContaConmigo.Controllers
@@ -38,18 +39,18 @@ namespace ContaConmigo.Controllers
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
 
             RequestDonor model = new RequestDonor();
-            //List<GroupFactorBlood> allFactorItems = db.GroupFactorBloods.ToList();
-            //var checkBoxListItems = new List<CheckBoxListItem>();
-            //foreach (var factor in allFactorItems)
-            //{
-            //    checkBoxListItems.Add(new CheckBoxListItem()
-            //    {
-            //        ID = factor.GroupFactorBloodId,
-            //        Display = factor.GroupFactorDescription,
-            //        IsChecked = false //On the add view, no genres are selected by default
-            //    });
-            //}
-            //model.BloodGroupFactorItems = checkBoxListItems;
+            List<GroupFactorBlood> allFactorItems = db.GroupFactorBloods.ToList();
+            var checkBoxListItems = new List<CheckBoxListItem>();
+            foreach (var factor in allFactorItems)
+            {
+                checkBoxListItems.Add(new CheckBoxListItem()
+                {
+                    ID = factor.GroupFactorBloodId,
+                    Display = factor.GroupFactorDescription,
+                    IsChecked = false //On the add view, no genres are selected by default
+                });
+            }
+            model.BloodGroupFactorItems = checkBoxListItems;
 
             return View(model);
         }
@@ -71,7 +72,7 @@ namespace ContaConmigo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AgregarSolicitud(RequestDonor a, List<int> factor, List<int> group)
+        public ActionResult AgregarSolicitud(RequestDonor a)
         {
             if (ModelState.IsValid)
             {
@@ -81,11 +82,11 @@ namespace ContaConmigo.Controllers
                     {
                         a.Completed = "false";
                         a.UserId = 1;
-                        var selectedGenres = a.BloodGroupFactorItems.Where(x => x.IsChecked).Select(x => x.ID).ToList();
-                        
+                        var selectedGroupFactor = a.BloodGroupFactorItems.Where(x => x.IsChecked).Select(x => x.ID).ToList();
+                        RequestDonorManager.AgregarSolicitud(a.Name_Request_Don, a.Last_Name_Request_Don, a.CityId, a.Last_Date_Replacement, a.AmountDonor, a.InstitutionId, a.Comment, a.Phone_Number, a.Birthday, a.Completed, a.UserId, selectedGroupFactor);
 
-                        db.RequestDonors.Add(a);
-                        db.SaveChanges();
+                        //db.RequestDonors.Add(a);
+                        //db.SaveChanges();
                         return RedirectToAction("ListadoSolicitudDonante");
                     }
                 }
