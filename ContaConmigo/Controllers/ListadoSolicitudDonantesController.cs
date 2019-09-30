@@ -8,40 +8,33 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System.Reflection.Emit;
-using ContaConmigo.DataAccess.Managers;
+//using ContaConmigo.DataAccess.Managers;
 //using ContaConmigo.DataAccess.Managers;
 
 namespace ContaConmigo.Controllers
 {
     public class ListadoSolicitudDonantesController : System.Web.Mvc.Controller
     {
+        ContaConmigoEntities db = new ContaConmigoEntities();
 
         // GET: SolicitudDonante
         public ActionResult ListadoSolicitudDonante()
-        {
-            ContaConmigoEntities db = new ContaConmigoEntities();
-            List<RequestDonor> requestDonors = db.RequestDonors.ToList();
-
-            //List<BloodGroup> BloodGroupList = db.BloodGroups.ToList();
-            //ViewBag.BloodGroupList = new SelectList(BloodGroupList, "BloodGroupId", "Blood_Group");
-
-            //List<BloodFactor> BloodFactorList = db.BloodFactors.ToList();
-            //ViewBag.BloodFactorList = new SelectList(BloodFactorList, "BloodFactorId", "Blood_Factor");
-
+        { 
+            List<RequestDonor> requestDonors = db.RequestDonors.OrderByDescending(x=>x.Last_Name_Request_Don).ToList();
             return View(requestDonors);
         }
         
+
         [HttpGet]
         public ActionResult AgregarSolicitud()
         {
-            ContaConmigoEntities db = new ContaConmigoEntities();
             List<Province> ProvinceList = db.Provinces.ToList();
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
 
             RequestDonor model = new RequestDonor();
-            List<GroupFactorBlood> allFactorItems = db.GroupFactorBloods.ToList();
+            List<GroupFactorBlood> allGroupFactorItems = db.GroupFactorBloods.ToList();
             var checkBoxListItems = new List<CheckBoxListItem>();
-            foreach (var factor in allFactorItems)
+            foreach (var factor in allGroupFactorItems)
             {
                 checkBoxListItems.Add(new CheckBoxListItem()
                 {
@@ -50,13 +43,12 @@ namespace ContaConmigo.Controllers
                     IsChecked = false //On the add view, no genres are selected by default
                 });
             }
-            model.BloodGroupFactorItems = checkBoxListItems;
+            model.RequestDonorBloods = checkBoxListItems;
 
             return View(model);
         }
         public JsonResult GetCityList(int ProvinceId)
         {
-            ContaConmigoEntities db = new ContaConmigoEntities();
             db.Configuration.ProxyCreationEnabled = false;
             List<City> CityList = db.Cities.Where(x => x.ProvinceId == ProvinceId).ToList();
             return Json(CityList, JsonRequestBehavior.AllowGet);
@@ -64,7 +56,7 @@ namespace ContaConmigo.Controllers
 
         public JsonResult GetInstitutionList(int CityId)
         {
-            ContaConmigoEntities db = new ContaConmigoEntities();
+
             db.Configuration.ProxyCreationEnabled = false;
             List<Institution> InstitutionList = db.Institutions.Where(x => x.CityId == CityId).ToList();
             return Json(InstitutionList, JsonRequestBehavior.AllowGet);
@@ -74,21 +66,43 @@ namespace ContaConmigo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AgregarSolicitud(RequestDonor a)
         {
+            //Error al agregar una solicitud The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: The navigation property 'RequestDonorBloods' on entity of type 'ContaConmigo.Model.RequestDonor' must implement ICollection<T> in order for Entity Framework to be able to track changes in collections.
             if (ModelState.IsValid)
             {
                 try
                 {
+                    string result = "Error! Order Is Not Complete!";
                     using (var db = new ContaConmigoEntities())
                     {
                         a.Completed = "false";
                         a.UserId = 1;
-                        var selectedGroupFactor = a.BloodGroupFactorItems.Where(x => x.IsChecked).Select(x => x.ID).ToList();
-                        RequestDonorManager.AgregarSolicitud(a.Name_Request_Don, a.Last_Name_Request_Don, a.CityId, a.Last_Date_Replacement, a.AmountDonor, a.InstitutionId, a.Comment, a.Phone_Number, a.Birthday, a.Completed, a.UserId, selectedGroupFactor);
+                        var selectedGroupFactor = a.RequestDonorBloods.Where(x => x.IsChecked).Select(x => x.ID).ToList();
+                        RequestDonor requestDonor = new RequestDonor();
+                        requestDonor.Name_Request_Don = a.Name_Request_Don;
+                        requestDonor.Last_Name_Request_Don = a.Last_Name_Request_Don;
+                        requestDonor.CityId = a.CityId;
+                        requestDonor.Last_Date_Replacement = a.Last_Date_Replacement;
+                        requestDonor.AmountDonor = a.AmountDonor;
+                        requestDonor.InstitutionId = a.InstitutionId;
+                        requestDonor.Comment = a.Comment;
+                        requestDonor.Phone_Number = a.Phone_Number;
+                        requestDonor.Birthday = a.Birthday;
+                        requestDonor.Completed = "false";
+                        requestDonor.UserId = 1;
+                        db.RequestDonors.Add(requestDonor);
 
-                        //db.RequestDonors.Add(a);
-                        //db.SaveChanges();
-                        return RedirectToAction("ListadoSolicitudDonante");
+                        foreach (var groupfactorID in selectedGroupFactor)
+                        {
+                            RequestDonorBlood requestDonorBlood = new RequestDonorBlood();
+                            requestDonorBlood.RequestDonorId = requestDonor.RequestDonorId;
+                            var factor = db.GroupFactorBloods.Find(groupfactorID);
+                            requestDonorBlood.GroupFactorBlood = factor;
+                            db.RequestDonorBloods.Add(requestDonorBlood);
+                        }
+                        db.SaveChanges();
+                        result = "Success! Order Is Complete!";
                     }
+                    return RedirectToAction("ListadoSolicitudDonante");
                 }
                 catch (Exception ex)
                 {

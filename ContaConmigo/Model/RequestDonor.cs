@@ -14,13 +14,6 @@ namespace ContaConmigo.Model
     
     public partial class RequestDonor
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RequestDonor()
-        {
-            this.RequestDonorBloods = new HashSet<RequestDonorBlood>();
-            BloodGroupFactorItems = new List<CheckBoxListItem>();
-        }
-    
         public int RequestDonorId { get; set; }
         public string Name_Request_Don { get; set; }
         public string Last_Name_Request_Don { get; set; }
@@ -47,8 +40,14 @@ namespace ContaConmigo.Model
         public virtual GroupFactorBlood GroupFactorBlood { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequestDonorBlood> RequestDonorBloods { get; set; }
+        //public virtual ICollection<RequestDonorBlood> RequestDonorBloods { get; set; }
 
-        public List<CheckBoxListItem> BloodGroupFactorItems { get; set; }
+        public ICollection<CheckBoxListItem> RequestDonorBloods { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RequestDonor()
+        {
+            RequestDonorBloods = new HashSet<CheckBoxListItem>();
+        }
     }
 }
