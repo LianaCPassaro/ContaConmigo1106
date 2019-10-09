@@ -27,6 +27,7 @@ namespace ContaConmigo.Model
     
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Donor> Donors { get; set; }
+        public virtual DbSet<DonorRequestDonor> DonorRequestDonors { get; set; }
         public virtual DbSet<GroupFactorBlood> GroupFactorBloods { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }

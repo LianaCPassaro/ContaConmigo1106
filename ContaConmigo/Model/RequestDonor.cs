@@ -14,6 +14,13 @@ namespace ContaConmigo.Model
     
     public partial class RequestDonor
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RequestDonor()
+        {
+            this.DonorRequestDonors = new HashSet<DonorRequestDonor>();
+            this.RequestDonorBloods = new HashSet<CheckBoxListItem>();
+        }
+
         public int RequestDonorId { get; set; }
         public string Name_Request_Don { get; set; }
         public string Last_Name_Request_Don { get; set; }
@@ -35,19 +42,14 @@ namespace ContaConmigo.Model
         public string GroupFactorDescription { get; set; }
 
         public virtual City City { get; set; }
-        public virtual Institution Institution { get; set; }
         public virtual Province Province { get; set; }
+        public virtual Institution Institution { get; set; }
         public virtual GroupFactorBlood GroupFactorBlood { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<RequestDonorBlood> RequestDonorBloods { get; set; }
+        public virtual ICollection<DonorRequestDonor> DonorRequestDonors { get; set; }
 
-        public ICollection<CheckBoxListItem> RequestDonorBloods { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RequestDonor()
-        {
-            RequestDonorBloods = new HashSet<CheckBoxListItem>();
-        }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CheckBoxListItem> RequestDonorBloods { get; set; }
     }
 }

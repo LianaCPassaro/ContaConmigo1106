@@ -21,6 +21,14 @@ namespace ContaConmigo.Controllers
         public ActionResult ListadoSolicitudDonante()
         { 
             List<RequestDonor> requestDonors = db.RequestDonors.OrderByDescending(x=>x.Last_Name_Request_Don).ToList();
+            int cityid = requestDonors.Select(x => x.CityId).First();
+            List<City> cityList = db.Cities.Where(x => x.Id ==  cityid).ToList();
+            var ProvinceId = cityList.Select(x => x.ProvinceId).First();
+            List<Province> provinceList = db.Provinces.Where(x => x.ProvinceId == ProvinceId).ToList();
+            ViewBag.ProvinceDescription = provinceList.Select(x => x.ProvinceDescription).First();
+
+
+
             return View(requestDonors);
         }
         
@@ -32,7 +40,7 @@ namespace ContaConmigo.Controllers
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
 
             RequestDonor model = new RequestDonor();
-            List<GroupFactorBlood> allGroupFactorItems = db.GroupFactorBloods.ToList();
+            ICollection<GroupFactorBlood> allGroupFactorItems = db.GroupFactorBloods.ToList();
             var checkBoxListItems = new List<CheckBoxListItem>();
             foreach (var factor in allGroupFactorItems)
             {

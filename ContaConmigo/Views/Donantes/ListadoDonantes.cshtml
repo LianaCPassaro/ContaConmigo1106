@@ -1,0 +1,68 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="with-device-with" />
+    @model IEnumerable<ContaConmigo.Model.Donor>
+
+    @{
+        ViewBag.Title = "Listado de Donantes disponibles";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+</head>
+<body>
+    <h2>Listado de Donantes Disponibles</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCompletoDon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProvinceId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Last_Date_Blood_Extract)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BloodGroupFactorDescription)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompletoDon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.CityName)
+            </td>
+            <td>
+                @ViewBag.ProvinceDescription
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_Date_Blood_Extract)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupFactorBlood.GroupFactorDescription)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.DonorId }) |
+                @Html.ActionLink("Detalle", "Details", new { id = item.DonorId }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.DonorId })
+            </td>
+        </tr>
+        }
+    </table>
+</body>
+</html>
+

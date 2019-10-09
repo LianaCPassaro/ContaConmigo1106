@@ -4,20 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="42b7652eac3c4fc8b9af01f45875173a" Name="Diagram1">
-        <EntityTypeShape EntityType="ContaConmigoModel.City" Width="1.875" PointX="4.625" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContaConmigoModel.Donor" Width="2.125" PointX="7.5" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContaConmigoModel.GroupFactorBlood" Width="1.875" PointX="10.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContaConmigoModel.Institution" Width="1.875" PointX="4.625" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContaConmigoModel.Province" Width="2" PointX="2.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContaConmigoModel.RequestDonor" Width="2.125" PointX="7.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContaConmigoModel.RequestDonorBlood" Width="1.875" PointX="10.25" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContaConmigoModel.UserContaConmigo" Width="2" PointX="2.25" PointY="2" IsExpanded="true" />
+      <Diagram DiagramId="8019a9d4d8d248a78381b2d53c0dd081" Name="Diagram1">
+        <EntityTypeShape EntityType="ContaConmigoModel.City" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContaConmigoModel.Donor" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContaConmigoModel.DonorRequestDonor" Width="1.5" PointX="9.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContaConmigoModel.GroupFactorBlood" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContaConmigoModel.Institution" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContaConmigoModel.Province" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContaConmigoModel.RequestDonor" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContaConmigoModel.RequestDonorBlood" Width="1.5" PointX="9.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContaConmigoModel.UserContaConmigo" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="ContaConmigoModel.FK__City__ProvinceId__4F7CD00D" ManuallyRouted="false" />
         <AssociationConnector Association="ContaConmigoModel.FK__Donor__CityId__3E1D39E1" ManuallyRouted="false" />
         <AssociationConnector Association="ContaConmigoModel.FK__Instituti__CityI__40058253" ManuallyRouted="false" />
         <AssociationConnector Association="ContaConmigoModel.FK__RequestDo__CityI__3864608B" ManuallyRouted="false" />
+        <AssociationConnector Association="ContaConmigoModel.FK__DonorRequ__Donor__09746778" ManuallyRouted="false" />
         <AssociationConnector Association="ContaConmigoModel.FK_Donor_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="ContaConmigoModel.FK__DonorRequ__Reque__0880433F" ManuallyRouted="false" />
         <AssociationConnector Association="ContaConmigoModel.FK__RequestDo__Blood__7EF6D905" ManuallyRouted="false" />
         <AssociationConnector Association="ContaConmigoModel.FK_Institution_Req_Donor" ManuallyRouted="false" />
         <AssociationConnector Association="ContaConmigoModel.FK__RequestDo__Reque__7E02B4CC" ManuallyRouted="false" />
