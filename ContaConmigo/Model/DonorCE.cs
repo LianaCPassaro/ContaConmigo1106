@@ -16,7 +16,7 @@ namespace ContaConmigo.Model
         public string Last_Name_Don { get; set; }
         [Required]
         [Display(Name = "Ciudad")]
-        public int CityName { get; set; }
+        public int CityId { get; set; }
         [Required]
         [Display(Name = "Provincia")]
         public int ProvinceId { get; set; }
@@ -26,11 +26,17 @@ namespace ContaConmigo.Model
         public System.DateTime Last_Date_Blood_Extract { get; set; }
         [Required]
         [Display(Name = "Grupo/Factor")]
-        public int BloodGroupFactorDescription { get; set; }
+        public int BloodGroupFactorId { get; set; }
+
+        public string BloodGroupFactorDescription { get; set; }
+
+        //public int Id { get; set; }
+        public string CityName { get; set; }
+
+        public virtual City City { get; set; }
     }
         [MetadataType(typeof(DonorCE))]
-        public partial class Donor 
-
+        public partial class Donor       
         {
             [Display(Name = "Nombre Completo")]
             public string NombreCompletoDon { get { return Last_Name_Don + ", " + Name_Don; } }

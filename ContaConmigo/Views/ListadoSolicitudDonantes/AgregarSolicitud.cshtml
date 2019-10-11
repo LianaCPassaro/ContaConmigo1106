@@ -63,8 +63,8 @@
                     {
                         @Html.LabelFor(model => model.ProvinceDescription, htmlAttributes: new { @class = "control-label" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Provincia--", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.ProvinceDescription, ViewBag.ProvinceList as SelectList, "--Provincia--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProvinceDescription, "", new { @class = "text-danger" })
                         </div>
                     }
 

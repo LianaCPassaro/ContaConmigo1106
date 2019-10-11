@@ -23,16 +23,16 @@
                 @Html.DisplayNameFor(model => model.NombreCompletoDon)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CityName)
+                @Html.DisplayNameFor(model => model.CityId)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.ProvinceId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Last_Date_Blood_Extract)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BloodGroupFactorDescription)
+                @Html.DisplayNameFor(model => model.BloodGroupFactorId)
             </th>
             <th></th>
         </tr>
@@ -46,9 +46,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.City.CityName)
             </td>
-            <td>
+            @*<td>
                 @ViewBag.ProvinceDescription
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Last_Date_Blood_Extract)
             </td>

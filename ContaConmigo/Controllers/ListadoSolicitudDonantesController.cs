@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System.Reflection.Emit;
+using System.Data.Entity;
 //using ContaConmigo.DataAccess.Managers;
 //using ContaConmigo.DataAccess.Managers;
 
@@ -20,15 +21,11 @@ namespace ContaConmigo.Controllers
         // GET: SolicitudDonante
         public ActionResult ListadoSolicitudDonante()
         { 
-            List<RequestDonor> requestDonors = db.RequestDonors.OrderByDescending(x=>x.Last_Name_Request_Don).ToList();
-            int cityid = requestDonors.Select(x => x.CityId).First();
-            List<City> cityList = db.Cities.Where(x => x.Id ==  cityid).ToList();
-            var ProvinceId = cityList.Select(x => x.ProvinceId).First();
-            List<Province> provinceList = db.Provinces.Where(x => x.ProvinceId == ProvinceId).ToList();
-            ViewBag.ProvinceDescription = provinceList.Select(x => x.ProvinceDescription).First();
-
-
-
+           // List<RequestDonor> requestDonors = db.RequestDonors.OrderByDescending(x=>x.Last_Name_Request_Don).ToList();
+            var requestDonors = db.RequestDonors.Include(x => x.City)
+               .Include(x => x.DonorRequestDonors)
+               .Include(x => x.Province)
+               .ToList();
             return View(requestDonors);
         }
         
