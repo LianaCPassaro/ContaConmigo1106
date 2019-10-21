@@ -1,0 +1,107 @@
+﻿@model ContaConmigo.Model.Donor
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Datos Nuevo Donante</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name_Don, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name_Don, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name_Don, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Last_Name_Don, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Last_Name_Don, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Last_Name_Don, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Last_Date_Blood_Extract, htmlAttributes: new { @class = "control-label col-md-4" })
+
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Last_Date_Blood_Extract)
+                        @*Last_Date_Blood_Extract.ToString("dd/MM/yyyy")*@
+                        @Html.ValidationMessageFor(model => model.Last_Date_Blood_Extract)
+                    </div >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BloodGroupFactorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("GroupFactorBloodId", "--Grupo/Factor--")
+
+                        @Html.ValidationMessageFor(model => model.BloodGroupFactorId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @if (ViewBag.ProvinceList != null)
+                        {
+                            @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.ProvinceId, ViewBag.ProvinceList as SelectList, "--Provincia--", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("CityId", "--Ciudad--")
+                        @*@Html.DropDownListFor(model => model.CityId, new SelectList(" "), "--Ciudad--", new { @class = "form-control" })*@
+                        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" align="right">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                @Html.ActionLink("Volver", "ListadoDonantes")
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ProvinceId").change(function () {
+                $.get("/Donante/GetCityList", { ProvinceId: $("#ProvinceId").val() }, function (data) {
+                    $("#CityId").empty();
+                    $.each(data, function (index, row) {
+                        $("#CityId").append("<option value='" + row.Id + "'>" + row.CityName + "</option>")
+                    });
+                });
+            })
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+}

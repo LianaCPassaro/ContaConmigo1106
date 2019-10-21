@@ -12,10 +12,10 @@
     }
 </head>
 <body>
-    <h2>Listado de Donantes Disponibles</h2>
+    <h2>Listado de Donantes</h2>
 
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Nuevo Donante", "AgregarDonante")
     </p>
     <table class="table">
         <tr>
@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.NombreCompletoDon)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CityId)
+                Ciudad
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.ProvinceId)
@@ -32,7 +32,7 @@
                 @Html.DisplayNameFor(model => model.Last_Date_Blood_Extract)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BloodGroupFactorId)
+                Grupo/Factor Sanguíneo
             </th>
             <th></th>
         </tr>
@@ -56,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.GroupFactorBlood.GroupFactorDescription)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.DonorId }) |
-                @Html.ActionLink("Detalle", "Details", new { id = item.DonorId }) |
-                @Html.ActionLink("Borrar", "Delete", new { id = item.DonorId })
+                @Html.ActionLink("Editar", "EditarDonante", new { id = item.DonorId }) |
+                @Html.ActionLink("+Info", "Details", new { id = item.DonorId }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.DonorId })
             </td>
         </tr>
         }

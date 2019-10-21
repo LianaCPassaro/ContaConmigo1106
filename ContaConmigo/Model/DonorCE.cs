@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,19 +21,20 @@ namespace ContaConmigo.Model
         [Display(Name = "Provincia")]
         public int ProvinceId { get; set; }
         [Required]
-        [Display(Name = "Fecha Ult. Extracción")]
+        [Display(Name = "Última Extracción")]
         [DataType(DataType.Date)]
-        public System.DateTime Last_Date_Blood_Extract { get; set; }
+        [DisplayFormat(DataFormatString ="{0:yyyy/MM/dd}", ApplyFormatInEditMode =true)]
+
+        public DateTime Last_Date_Blood_Extract { get; set; }
         [Required]
         [Display(Name = "Grupo/Factor")]
         public int BloodGroupFactorId { get; set; }
 
-        public string BloodGroupFactorDescription { get; set; }
-
         //public int Id { get; set; }
-        public string CityName { get; set; }
+        //public string CityName { get; set; }
 
-        public virtual City City { get; set; }
+        //public virtual City City { get; set; }
+        //public virtual Province Province { get; set; }
     }
         [MetadataType(typeof(DonorCE))]
         public partial class Donor       
