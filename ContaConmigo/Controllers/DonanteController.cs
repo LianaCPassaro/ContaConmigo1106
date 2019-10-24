@@ -43,13 +43,14 @@ namespace ContaConmigo.Controllers
             ViewBag.GroupFactorBloodId = new SelectList(groupFactorsQuery, "GroupFactorBloodId", "GroupFactorDescription", selectedGroupFactor);
         }
 
-        private void PopulateCityDropDownList(object selectedCity = null)
-        {
-            var cityQuery = from d in db.Cities
-                                    orderby d.Id
-                                    select d;
-            ViewBag.CityId = new SelectList(cityQuery, "Id", "CityName", selectedCity);
-        }
+        //private void PopulateCityDropDownList(int pcia, object selectedCity = null)
+        //{
+        //    var cityQuery = from d in db.Cities
+        //                            orderby d.CityName
+        //                            where d.ProvinceId == pcia
+        //                            select d;
+        //    ViewBag.CityIdSelected = new SelectList(cityQuery, "Id", "CityName", selectedCity);
+        //}
 
         public JsonResult GetCityList(int ProvinceId)
         {
@@ -108,21 +109,22 @@ namespace ContaConmigo.Controllers
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
             PopulateGroupFactorDropDownList(donor.BloodGroupFactorId);
             //busco la provincia relacionada a la ciudad y la agrego al modelo
-            int citi = db.Cities.Find(donor.CityId).ProvinceId;
-            Province province = db.Provinces.Find(citi);
+            int pcia = db.Cities.Find(donor.CityId).ProvinceId;
+            Province province = db.Provinces.Find(pcia);
             donor.ProvinceId = province.ProvinceId;
             
-            PopulateCityDropDownList(donor.CityId);
+            //PopulateCityDropDownList(pcia, donor.CityId);
 
 
             return View(donor);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarDonante(Donor donor)
+        public ActionResult EditarDonante(int id, Donor donor)
         {
             if (ModelState.IsValid)
             {
+
                 db.Entry(donor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ListadoDonantes");

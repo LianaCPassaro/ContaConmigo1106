@@ -11,6 +11,7 @@ namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
 
     public partial class Donor
@@ -23,7 +24,7 @@ namespace ContaConmigo.Model
         public int DonorId { get; set; }
         public string Name_Don { get; set; }
         public string Last_Name_Don { get; set; }
-        public Nullable<System.DateTime> Last_Date_Blood_Extract { get; set; }
+        //public Nullable<System.DateTime> Last_Date_Blood_Extract { get; set; }
         public int UserId { get; set; }
         public int Id { get; set; }
         public int CityId { get; set; }
@@ -32,6 +33,8 @@ namespace ContaConmigo.Model
         public string ProvinceDescription { get; set; }
         public int GroupFactorBloodId { get; set; }
         public int BloodGroupFactorId { get; set; }
+        public DateTime Last_Date_Blood_Extract { get; set; }
+
 
 
         public virtual Province Province { get; set; }
