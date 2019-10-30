@@ -34,6 +34,8 @@ namespace ContaConmigo.Model
         public string Completed { get; set; }
         public byte[] Photo { get; set; }
         public int UserId { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
     
         public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

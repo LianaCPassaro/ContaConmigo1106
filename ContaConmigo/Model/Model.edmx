@@ -10,7 +10,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CityId" Type="int" Nullable="false" />
           <Property Name="CityName" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="ZipCode" Type="int" Nullable="false" />
           <Property Name="ProvinceId" Type="int" Nullable="false" />
@@ -26,6 +25,8 @@
           <Property Name="Last_Date_Blood_Extract" Type="datetime" />
           <Property Name="BloodGroupFactorId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="DonorRequestDonor">
           <Key>
@@ -76,6 +77,8 @@
           <Property Name="Completed" Type="varchar" MaxLength="255" />
           <Property Name="Photo" Type="image" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="RequestDonorBlood">
           <Key>
@@ -84,6 +87,8 @@
           <Property Name="RequestDonorBloodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequestDonorId" Type="int" Nullable="false" />
           <Property Name="BloodGroupFactorId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserContaConmigo">
           <Key>
@@ -96,6 +101,8 @@
           <Property Name="ConfirmEmailAddress" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="PasswordUser" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="ConfirmPasswordUser" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <Association Name="FK__City__ProvinceId__4F7CD00D">
           <End Role="Province" Type="Self.Province" Multiplicity="1" />
@@ -278,7 +285,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CityId" Type="Int32" Nullable="false" />
           <Property Name="CityName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ZipCode" Type="Int32" Nullable="false" />
           <Property Name="ProvinceId" Type="Int32" Nullable="false" />
@@ -298,6 +304,8 @@
           <Property Name="Last_Date_Blood_Extract" Type="DateTime" Precision="3" />
           <Property Name="BloodGroupFactorId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="City" Relationship="Self.FK__Donor__CityId__3E1D39E1" FromRole="Donor" ToRole="City" />
           <NavigationProperty Name="DonorRequestDonors" Relationship="Self.FK__DonorRequ__Donor__09746778" FromRole="Donor" ToRole="DonorRequestDonor" />
           <NavigationProperty Name="GroupFactorBlood" Relationship="Self.FK_Donor_Group" FromRole="Donor" ToRole="GroupFactorBlood" />
@@ -358,6 +366,8 @@
           <Property Name="Completed" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="City" Relationship="Self.FK__RequestDo__CityI__3864608B" FromRole="RequestDonor" ToRole="City" />
           <NavigationProperty Name="DonorRequestDonors" Relationship="Self.FK__DonorRequ__Reque__0880433F" FromRole="RequestDonor" ToRole="DonorRequestDonor" />
           <NavigationProperty Name="Institution" Relationship="Self.FK_Institution_Req_Donor" FromRole="RequestDonor" ToRole="Institution" />
@@ -370,6 +380,8 @@
           <Property Name="RequestDonorBloodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RequestDonorId" Type="Int32" Nullable="false" />
           <Property Name="BloodGroupFactorId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="GroupFactorBlood" Relationship="Self.FK__RequestDo__Blood__7EF6D905" FromRole="RequestDonorBlood" ToRole="GroupFactorBlood" />
           <NavigationProperty Name="RequestDonor" Relationship="Self.FK__RequestDo__Reque__7E02B4CC" FromRole="RequestDonorBlood" ToRole="RequestDonor" />
         </EntityType>
@@ -384,6 +396,8 @@
           <Property Name="ConfirmEmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PasswordUser" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ConfirmPasswordUser" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK__City__ProvinceId__4F7CD00D">
           <End Role="Province" Type="Self.Province" Multiplicity="1" />
@@ -566,7 +580,6 @@
             <EntityTypeMapping TypeName="ContaConmigoModel.City">
               <MappingFragment StoreEntitySet="City">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
                 <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
@@ -583,6 +596,8 @@
                 <ScalarProperty Name="Last_Date_Blood_Extract" ColumnName="Last_Date_Blood_Extract" />
                 <ScalarProperty Name="BloodGroupFactorId" ColumnName="BloodGroupFactorId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -638,6 +653,8 @@
                 <ScalarProperty Name="Completed" ColumnName="Completed" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -647,6 +664,8 @@
                 <ScalarProperty Name="RequestDonorBloodId" ColumnName="RequestDonorBloodId" />
                 <ScalarProperty Name="RequestDonorId" ColumnName="RequestDonorId" />
                 <ScalarProperty Name="BloodGroupFactorId" ColumnName="BloodGroupFactorId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -660,6 +679,8 @@
                 <ScalarProperty Name="ConfirmEmailAddress" ColumnName="ConfirmEmailAddress" />
                 <ScalarProperty Name="PasswordUser" ColumnName="PasswordUser" />
                 <ScalarProperty Name="ConfirmPasswordUser" ColumnName="ConfirmPasswordUser" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

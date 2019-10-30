@@ -16,7 +16,7 @@ namespace ContaConmigo.Controllers
 {
     public class DonanteController : Controller
     {
-        ContaConmigoEntities1 db = new ContaConmigoEntities1();
+        ContaConmigoEntities db = new ContaConmigoEntities();
         // GET: Donantes
         public ActionResult ListadoDonantes()
         {            
@@ -74,7 +74,7 @@ namespace ContaConmigo.Controllers
                         don.UserId = 1;
                         don.Name_Don = donor.Name_Don;
                         don.Last_Name_Don = donor.Last_Name_Don;
-                        //don.Last_Date_Blood_Extract = donor.Last_Date_Blood_Extract;
+                        don.Last_Date_Blood_Extract = donor.Last_Date_Blood_Extract;
                         don.CityId = donor.CityId;
                         don.BloodGroupFactorId = donor.BloodGroupFactorId;
                         db.Donors.Add(don);

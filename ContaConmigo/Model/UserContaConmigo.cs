@@ -21,5 +21,7 @@ namespace ContaConmigo.Model
         public string ConfirmEmailAddress { get; set; }
         public string PasswordUser { get; set; }
         public string ConfirmPasswordUser { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
     }
 }

@@ -17,6 +17,8 @@ namespace ContaConmigo.Model
         public int RequestDonorBloodId { get; set; }
         public int RequestDonorId { get; set; }
         public int BloodGroupFactorId { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
     
         public virtual GroupFactorBlood GroupFactorBlood { get; set; }
         public virtual RequestDonor RequestDonor { get; set; }

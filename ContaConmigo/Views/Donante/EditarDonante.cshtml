@@ -105,7 +105,7 @@
                 $.get("/Donante/GetCityList", { ProvinceId: $("#ProvinceId").val() }, function (data) {
                     $("#CityId").empty();
                     $.each(data, function (index, row) {
-                        $("#CityId").append("<option value='" + row.CityId + "'>" + row.CityName + "</option>")
+                        $("#CityId").append("<option value='" + row.Id + "'>" + row.CityName + "</option>")
                     });
                 });
             })

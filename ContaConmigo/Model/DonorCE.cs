@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,22 +21,20 @@ namespace ContaConmigo.Model
         [Display(Name = "Provincia")]
         public int ProvinceId { get; set; }
 
-        [Required(ErrorMessage = "{0} es requerido")]
+        [Required]
         //[DataType(DataType.Date)] Try removing [DataType(DataType.Date)] because I believe this creates <input type="date" />. If you do that you'll end up with a <input type="text" /> to which you can attach jQuery date-picker.
         [Display(Name = "Última Extracción")]
-        [DisplayFormat(DataFormatString = @"{0:MM\/dd\/yyyy}",ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = @"{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Last_Date_Blood_Extract { get; set; }
 
         [Required]
         [Display(Name = "Grupo/Factor")]
         public int BloodGroupFactorId { get; set; }
-
-        public int DonorId { get; set; }
     }
-        [MetadataType(typeof(DonorCE))]
-        public partial class Donor       
-        {
-            [Display(Name = "Nombre Completo")]
-            public string NombreCompletoDon { get { return Last_Name_Don + ", " + Name_Don; } }
-        }
+    [MetadataType(typeof(DonorCE))]
+    public partial class Donor
+    {
+        [Display(Name = "Nombre Completo")]
+        public string NombreCompletoDon { get { return Last_Name_Don + ", " + Name_Don; } }
+    }
 }
