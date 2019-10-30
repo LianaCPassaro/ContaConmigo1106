@@ -24,7 +24,7 @@ namespace ContaConmigo.Model
         [Required(ErrorMessage = "{0} es requerido")]
         //[DataType(DataType.Date)] Try removing [DataType(DataType.Date)] because I believe this creates <input type="date" />. If you do that you'll end up with a <input type="text" /> to which you can attach jQuery date-picker.
         [Display(Name = "Última Extracción")]
-        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}",ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = @"{0:MM\/dd\/yyyy}",ApplyFormatInEditMode = true)]
         public DateTime Last_Date_Blood_Extract { get; set; }
 
         [Required]

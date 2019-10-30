@@ -11,9 +11,7 @@ namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
+    
     public partial class Donor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,23 +19,15 @@ namespace ContaConmigo.Model
         {
             this.DonorRequestDonors = new HashSet<DonorRequestDonor>();
         }
+    
         public int DonorId { get; set; }
         public string Name_Don { get; set; }
         public string Last_Name_Don { get; set; }
-        //public Nullable<System.DateTime> Last_Date_Blood_Extract { get; set; }
-        public int UserId { get; set; }
-        public int Id { get; set; }
         public int CityId { get; set; }
-        public string CityName { get; set; }
-        public int ProvinceId { get; set; }
-        public string ProvinceDescription { get; set; }
-        public int GroupFactorBloodId { get; set; }
+        public Nullable<System.DateTime> Last_Date_Blood_Extract { get; set; }
         public int BloodGroupFactorId { get; set; }
-        public DateTime Last_Date_Blood_Extract { get; set; }
-
-
-
-        public virtual Province Province { get; set; }
+        public int UserId { get; set; }
+    
         public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonorRequestDonor> DonorRequestDonors { get; set; }

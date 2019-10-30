@@ -16,7 +16,7 @@ namespace ContaConmigo.Controllers
 {
     public class DonanteController : Controller
     {
-        ContaConmigoEntities db = new ContaConmigoEntities();
+        ContaConmigoEntities1 db = new ContaConmigoEntities1();
         // GET: Donantes
         public ActionResult ListadoDonantes()
         {            
@@ -35,6 +35,7 @@ namespace ContaConmigo.Controllers
             return View();
         }
 
+
         private void PopulateGroupFactorDropDownList(object selectedGroupFactor = null)
         {
             var groupFactorsQuery = from d in db.GroupFactorBloods
@@ -43,14 +44,14 @@ namespace ContaConmigo.Controllers
             ViewBag.GroupFactorBloodId = new SelectList(groupFactorsQuery, "GroupFactorBloodId", "GroupFactorDescription", selectedGroupFactor);
         }
 
-        //private void PopulateCityDropDownList(int pcia, object selectedCity = null)
-        //{
-        //    var cityQuery = from d in db.Cities
-        //                            orderby d.CityName
-        //                            where d.ProvinceId == pcia
-        //                            select d;
-        //    ViewBag.CityIdSelected = new SelectList(cityQuery, "Id", "CityName", selectedCity);
-        //}
+        private void PopulateCityDropDownList(int pcia, object selectedCity = null)
+        {
+            var cityQuery = from d in db.Cities
+                            orderby d.CityName
+                            where d.ProvinceId == pcia
+                            select d;
+            ViewBag.CityIdSelected = new SelectList(cityQuery, "Id", "CityName", selectedCity);
+        }
 
         public JsonResult GetCityList(int ProvinceId)
         {
@@ -75,7 +76,7 @@ namespace ContaConmigo.Controllers
                         don.Last_Name_Don = donor.Last_Name_Don;
                         //don.Last_Date_Blood_Extract = donor.Last_Date_Blood_Extract;
                         don.CityId = donor.CityId;
-                        don.BloodGroupFactorId = donor.GroupFactorBloodId;
+                        don.BloodGroupFactorId = donor.BloodGroupFactorId;
                         db.Donors.Add(don);
                         db.SaveChanges();
                     }
@@ -93,18 +94,10 @@ namespace ContaConmigo.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditarDonante(int? id)
+        public ActionResult EditarDonante(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Donor donor = db.Donors.Find(id);
-            if (donor == null)
-            {
-                return HttpNotFound();
-            }
-            
+            var donor = db.Donors.Where(x => x.DonorId == id).FirstOrDefault();
+
             List<Province> ProvinceList = db.Provinces.ToList();
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
             PopulateGroupFactorDropDownList(donor.BloodGroupFactorId);
@@ -120,11 +113,14 @@ namespace ContaConmigo.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarDonante(int id, Donor donor)
+        public ActionResult EditarDonante([Bind(Include = "DonorID,Name_Don,Last_Name_Don,CityId,Last_Date_Blood_Extract,BloodGroupFactorId,UserId=1")]Donor donor)
         {
+            //var groupFactorsQuery = from d in db.GroupFactorBloods
+            //                        //orderby d.GroupFactorDescription
+            //                        select d;
+            //ViewBag.GroupFactorBloodId = new SelectList(groupFactorsQuery, "GroupFactorBloodId", "GroupFactorDescription", "BloodGroupFactorId");
             if (ModelState.IsValid)
             {
-
                 db.Entry(donor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ListadoDonantes");

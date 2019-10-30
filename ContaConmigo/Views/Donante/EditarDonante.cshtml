@@ -16,6 +16,7 @@
         <h4>Editar Datos Donante</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.DonorId)
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -52,7 +53,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.BloodGroupFactorId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownList("GroupFactorBloodId", "--Grupo/Factor--")
+                        @Html.DropDownListFor(model => model.BloodGroupFactorId, ViewBag.GroupFactorBloodId as SelectList, "--Grupo--", new { @class = "form-control" })
+                        @*@Html.DropDownList("GroupFactorBloodId", "--Grupo/Factor--")*@
                         @Html.ValidationMessageFor(model => model.BloodGroupFactorId, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -101,7 +103,7 @@
         $(document).ready(function () {
             $("#ProvinceId").change(function () {
                 $.get("/Donante/GetCityList", { ProvinceId: $("#ProvinceId").val() }, function (data) {
-                    //$("#CityId").empty();
+                    $("#CityId").empty();
                     $.each(data, function (index, row) {
                         $("#CityId").append("<option value='" + row.CityId + "'>" + row.CityName + "</option>")
                     });

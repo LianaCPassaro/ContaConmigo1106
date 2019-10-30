@@ -18,7 +18,7 @@ namespace ContaConmigo.Model
         public RequestDonor()
         {
             this.DonorRequestDonors = new HashSet<DonorRequestDonor>();
-            this.RequestDonorBloods = new HashSet<CheckBoxListItem>();
+            this.RequestDonorBloods = new HashSet<RequestDonorBlood>();
         }
     
         public int RequestDonorId { get; set; }
@@ -34,15 +34,12 @@ namespace ContaConmigo.Model
         public string Completed { get; set; }
         public byte[] Photo { get; set; }
         public int UserId { get; set; }
-        public int GroupFactorBloodId { get; set; }
-        public string ProvinceDescription { get; set; }
-
+    
         public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonorRequestDonor> DonorRequestDonors { get; set; }
         public virtual Institution Institution { get; set; }
-        public virtual Province Province { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CheckBoxListItem> RequestDonorBloods { get; set; }
+        public virtual ICollection<RequestDonorBlood> RequestDonorBloods { get; set; }
     }
 }
