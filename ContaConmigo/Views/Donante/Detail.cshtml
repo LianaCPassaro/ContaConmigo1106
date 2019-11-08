@@ -1,0 +1,62 @@
+﻿@model ContaConmigo.Model.Donor
+
+<div>
+    <h4>Donor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCompletoDon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCompletoDon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProvinceId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProvinceId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Last_Date_Blood_Extract)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Last_Date_Blood_Extract)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloodGroupFactorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloodGroupFactorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "EditarDonante", new {@class="button is-primary has-text-wrap", id = Model.DonorId }) |
+    @Html.ActionLink("Volver al listado", "ListadoDonantes")
+</p>

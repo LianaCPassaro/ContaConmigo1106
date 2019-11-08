@@ -301,6 +301,8 @@
     <Content Include="Views\Donante\ListadoDonantes.cshtml" />
     <Content Include="Views\Donante\AgregarDonante.cshtml" />
     <Content Include="Views\Donante\EditarDonante.cshtml" />
+    <Content Include="Views\Donante\Eliminar.cshtml" />
+    <Content Include="Views\Donante\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

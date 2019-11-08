@@ -1,35 +1,35 @@
-﻿    @model IEnumerable<ContaConmigo.Model.Donor>
+﻿@model IEnumerable<ContaConmigo.Model.Donor>
 
-    @{
-        ViewBag.Title = "Listado de Donantes disponibles";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+@{
+    ViewBag.Title = "Listado de Donantes disponibles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-    <h2>Listado de Donantes</h2>
+<h2>Listado de Donantes</h2>
 
-    <p>
-        @Html.ActionLink("Nuevo Donante", "AgregarDonante")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreCompletoDon)
-            </th>
-            <th>
-                Ciudad
-            </th>
+<p>
+    @Html.ActionLink("Nuevo Donante", "AgregarDonante")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreCompletoDon)
+        </th>
+        <th>
+            Ciudad
+        </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Last_Date_Blood_Extract)
-            </th>
-            <th>
-                Grupo/Factor Sanguíneo
-            </th>
-            <th></th>
-        </tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Last_Date_Blood_Extract)
+        </th>
+        <th>
+            Grupo/Factor Sanguíneo
+        </th>
+        <th></th>
+    </tr>
 
-        @foreach (var item in Model)
-        {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.NombreCompletoDon)
@@ -38,8 +38,8 @@
                 @Html.DisplayFor(modelItem => item.City.CityName)
             </td>
             @*<td>
-                @ViewBag.ProvinceDescription
-            </td>*@
+                    @ViewBag.ProvinceDescription
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Last_Date_Blood_Extract)
             </td>
@@ -48,11 +48,21 @@
             </td>
             <td>
                 @Html.ActionLink("Editar", "EditarDonante", new { id = item.DonorId }) |
-                @Html.ActionLink("+Info", "Details", new { id = item.DonorId }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.DonorId })
+                @Html.ActionLink("+Info", "Detail", new { id = item.DonorId }) |
+                @*@Html.ActionLink("Eliminar", "EliminarDonante", new { id = item.DonorId }, new { @class = "aElimina" })*@
+                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.DonorId })
             </td>
         </tr>
-        }
-    </table>
+    }
+</table>
+@section scripts{
+    @*<script>
+            $(".aElimina").click(function (event) {
+                if (!confirm('Desea eliminar el registro?')) {
+                    event.preventDefault();
+                }
+            });
+    </script>*@
+}
 
 

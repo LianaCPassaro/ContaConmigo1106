@@ -1,0 +1,25 @@
+﻿@model ContaConmigo.Model.Donor
+<p class="error">@ViewBag.ErrorMessage</p>
+<h3>Está seguro que desea eliminar el siguiente donante?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre del Donante
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCompletoDon)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="button is-primary has-text-wrap" /> |
+            @Html.ActionLink("Volver al listado", "ListadoDonantes")
+        </div>
+    }
+</div>

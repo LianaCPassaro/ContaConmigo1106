@@ -11,6 +11,7 @@ using System.Reflection.Emit;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Net;
+using System.Data;
 
 namespace ContaConmigo.Controllers
 {
@@ -127,5 +128,57 @@ namespace ContaConmigo.Controllers
             }
             return View(donor);
         }
+
+        public ActionResult Eliminar(int? id, bool? saveChangesError = false)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+            }
+            Donor donor = db.Donors.Find(id);
+            if (donor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(donor);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            try
+            {
+                Donor donor = db.Donors.Find(id);
+                db.Donors.Remove(donor);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+            return RedirectToAction("ListadoDonantes");
+        }
+        public ActionResult Detail(int id)
+        {
+            Donor donor = db.Donors.Find(id);
+            return View(donor);
+
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+
     }
 }
