@@ -78,6 +78,7 @@ namespace ContaConmigo.Controllers
                         don.Last_Date_Blood_Extract = donor.Last_Date_Blood_Extract;
                         don.CityId = donor.CityId;
                         don.BloodGroupFactorId = donor.BloodGroupFactorId;
+                        don.CreatedDate = DateTime.Now;
                         db.Donors.Add(don);
                         db.SaveChanges();
                     }
@@ -123,6 +124,7 @@ namespace ContaConmigo.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(donor).State = EntityState.Modified;
+                donor.UpdatedDate = DateTime.Now;
                 db.SaveChanges();
                 return RedirectToAction("ListadoDonantes");
             }
@@ -167,6 +169,14 @@ namespace ContaConmigo.Controllers
         public ActionResult Detail(int id)
         {
             Donor donor = db.Donors.Find(id);
+     
+
+            int pcia = db.Cities.Find(donor.CityId).ProvinceId;
+            donor.ProvinceDescription = db.Provinces.Find(pcia).ProvinceDescription;
+
+            donor.CityName = db.Cities.Find(donor.CityId).CityName;
+            
+
             return View(donor);
 
         }

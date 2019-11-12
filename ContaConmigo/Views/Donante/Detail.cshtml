@@ -17,7 +17,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProvinceId)
+            @Html.DisplayFor(model => model.ProvinceDescription)
         </dd>
 
         <dt>
@@ -25,7 +25,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CityId)
+            @Html.DisplayFor(model => model.CityName)
         </dd>
 
         <dt>
@@ -38,10 +38,11 @@
 
         <dt>
             @Html.DisplayNameFor(model => model.BloodGroupFactorId)
+            
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BloodGroupFactorId)
+            @Html.DisplayFor(model => model.GroupFactorBlood.GroupFactorDescription)
         </dd>
 
         <dt>
@@ -51,12 +52,9 @@
         <dd>
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
-
-
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "EditarDonante", new {@class="button is-primary has-text-wrap", id = Model.DonorId }) |
+    @Html.ActionLink("Editar", "EditarDonante", new {@class="btn btn-primary", id = Model.DonorId }) |
     @Html.ActionLink("Volver al listado", "ListadoDonantes")
 </p>

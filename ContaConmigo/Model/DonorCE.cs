@@ -30,6 +30,12 @@ namespace ContaConmigo.Model
         [Required]
         [Display(Name = "Grupo/Factor")]
         public int BloodGroupFactorId { get; set; }
+
+        [Display(Name = "Fecha Creación")]
+        public DateTime CreatedDate { get; set; }
+
+        [Display(Name = "Fecha Modificación")]
+        public DateTime UpdatedDate { get; set; }
     }
     [MetadataType(typeof(DonorCE))]
     public partial class Donor
