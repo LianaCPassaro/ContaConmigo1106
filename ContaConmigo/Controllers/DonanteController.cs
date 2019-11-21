@@ -12,6 +12,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Net;
 using System.Data;
+using ContaConmigo.ViewModel;
 
 namespace ContaConmigo.Controllers
 {
@@ -20,15 +21,34 @@ namespace ContaConmigo.Controllers
         ContaConmigoEntities db = new ContaConmigoEntities();
         // GET: Donantes
         public ActionResult ListadoDonantes()
-        {            
-            var donors = db.Donors.Include(x => x.City)
-                .Include(x => x.GroupFactorBlood)
-                .OrderBy(x => x.Last_Name_Don)
-                .ToList();
-            return View(donors);
+        {
+            using (ContaConmigoEntities db = new ContaConmigoEntities())
+            {
+                List<Donor> donors = db.Donors.ToList();
+                List<City> cities = db.Cities.ToList();
+                List<Province> provinces = db.Provinces.ToList();
+                List<GroupFactorBlood> groupFactors = db.GroupFactorBloods.ToList();
+
+                var donorcitype = from d in donors
+                                  join c in cities on d.CityId equals c.Id into table1
+                                  from c in table1.ToList()
+                                  join p in provinces on c.ProvinceId equals p.ProvinceId into table2
+                                  from p in table2.ToList()
+                                  join b in groupFactors on d.BloodGroupFactorId equals b.GroupFactorBloodId into table3
+                                  from b in table3.ToList()
+                                  select new CityViewModel
+                                  {
+                                      DonorsVM = d,
+                                      CitiesVM = c,
+                                      ProvincesVM = p,
+                                      GroupFactorBloodVM =b
+                                  };
+                return View(donorcitype);
+            }
         }
+
         [HttpGet]
-        public ActionResult AgregarDonante ()
+        public ActionResult AgregarDonante()
         {
             List<Province> ProvinceList = db.Provinces.ToList();
             ViewBag.ProvinceList = new SelectList(ProvinceList, "ProvinceId", "ProvinceDescription");
@@ -40,8 +60,8 @@ namespace ContaConmigo.Controllers
         private void PopulateGroupFactorDropDownList(object selectedGroupFactor = null)
         {
             var groupFactorsQuery = from d in db.GroupFactorBloods
-                                   orderby d.GroupFactorDescription
-                                   select d;
+                                    orderby d.GroupFactorDescription
+                                    select d;
             ViewBag.GroupFactorBloodId = new SelectList(groupFactorsQuery, "GroupFactorBloodId", "GroupFactorDescription", selectedGroupFactor);
         }
 
@@ -107,7 +127,7 @@ namespace ContaConmigo.Controllers
             int pcia = db.Cities.Find(donor.CityId).ProvinceId;
             Province province = db.Provinces.Find(pcia);
             donor.ProvinceId = province.ProvinceId;
-            
+
             //PopulateCityDropDownList(pcia, donor.CityId);
 
 
@@ -168,26 +188,47 @@ namespace ContaConmigo.Controllers
         }
         public ActionResult Detail(int id)
         {
-            Donor donor = db.Donors.Find(id);
-     
-
-            int pcia = db.Cities.Find(donor.CityId).ProvinceId;
-            donor.ProvinceDescription = db.Provinces.Find(pcia).ProvinceDescription;
-
-            donor.CityName = db.Cities.Find(donor.CityId).CityName;
-            
-
-            return View(donor);
-
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            //Donor donor = db.Donors.Find(id);
+            //int pcia = db.Cities.Find(donor.CityId).ProvinceId;
+            //donor.ProvinceDescription = db.Provinces.Find(pcia).ProvinceDescription;
+            //donor.CityName = db.Cities.Find(donor.CityId).CityName;
+            //return View(donor);
+            using (ContaConmigoEntities db = new ContaConmigoEntities())
             {
-                db.Dispose();
+                List<Donor> donors = db.Donors.ToList();
+                List<City> cities = db.Cities.ToList();
+                List<Province> provinces = db.Provinces.ToList();
+                List<GroupFactorBlood> groupFactors = db.GroupFactorBloods.ToList();
+
+                var donorcitype = from d in donors 
+                                  join c in cities on d.CityId equals c.Id into table1
+                                  where d.DonorId == id
+                                  from c in table1.ToList()
+                                  join p in provinces on c.ProvinceId equals p.ProvinceId into table2
+                                  from p in table2.ToList()
+                                  join b in groupFactors on d.BloodGroupFactorId equals b.GroupFactorBloodId into table3
+                                  from b in table3.ToList()
+                                  
+                                  select new CityViewModel
+                                  {
+                                        
+                                      DonorsVM = d,
+                                      CitiesVM = c,
+                                      ProvincesVM = p,
+                                      GroupFactorBloodVM = b
+                                  };
+                return View(donorcitype);
             }
-            base.Dispose(disposing);
+
         }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
 
     }

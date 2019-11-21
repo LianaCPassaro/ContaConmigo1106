@@ -193,6 +193,7 @@
     <Compile Include="Model\UserContaConmigo.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cascade.combo.js" />

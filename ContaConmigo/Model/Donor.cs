@@ -11,7 +11,7 @@ namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Donor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +19,7 @@ namespace ContaConmigo.Model
         {
             this.DonorRequestDonors = new HashSet<DonorRequestDonor>();
         }
-    
+
         public int DonorId { get; set; }
         public string Name_Don { get; set; }
         public string Last_Name_Don { get; set; }
@@ -40,4 +40,5 @@ namespace ContaConmigo.Model
         public virtual ICollection<DonorRequestDonor> DonorRequestDonors { get; set; }
         public virtual GroupFactorBlood GroupFactorBlood { get; set; }
     }
+
 }

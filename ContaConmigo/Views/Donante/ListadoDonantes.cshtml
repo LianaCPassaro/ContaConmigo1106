@@ -1,10 +1,10 @@
-﻿@model IEnumerable<ContaConmigo.Model.Donor>
-
+﻿@model IEnumerable<ContaConmigo.ViewModel.CityViewModel>
 @{
+    /**/
+
     ViewBag.Title = "Listado de Donantes disponibles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Listado de Donantes</h2>
 
 <p>
@@ -12,57 +12,36 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NombreCompletoDon)
-        </th>
-        <th>
-            Ciudad
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.Last_Date_Blood_Extract)
-        </th>
-        <th>
-            Grupo/Factor Sanguíneo
-        </th>
-        <th></th>
+        <td>Nombre Completo</td>
+        <td>Provincia</td>
+        <td>Ciudad</td>
+        <td>Grupo/Factor Sanguíneo</td>
+        <td>Ultima Fecha Donación</td>
+        <td>Acciones</td>
     </tr>
-
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCompletoDon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City.CityName)
-            </td>
-            @*<td>
-                    @ViewBag.ProvinceDescription
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Last_Date_Blood_Extract)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GroupFactorBlood.GroupFactorDescription)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "EditarDonante", new { id = item.DonorId }) |
-                @Html.ActionLink("+Info", "Detail", new { id = item.DonorId }) |
-                @*@Html.ActionLink("Eliminar", "EliminarDonante", new { id = item.DonorId }, new { @class = "aElimina" })*@
-                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.DonorId })
-            </td>
-        </tr>
+    <tr>
+        <td>@item.DonorsVM.NombreCompletoDon</td>
+        <td>@item.ProvincesVM.ProvinceDescription</td>
+        <td>@item.CitiesVM.CityName</td>
+        <td>@item.GroupFactorBloodVM.GroupFactorDescription</td>
+        <td>@item.DonorsVM.Last_Date_Blood_Extract</td>
+        <td>
+            @Html.ActionLink("Editar", "EditarDonante", new { id = item.DonorsVM.DonorId }) |
+            @Html.ActionLink("+Info", "Detail", new { id = item.DonorsVM.DonorId }) |
+            @Html.ActionLink("Eliminar", "Eliminar", new { id = item.DonorsVM.DonorId }, new { @class = "aElimina" })
+        </td>
+    </tr>       
     }
 </table>
+<td>@Html.ActionLink("Volver", "Index")</td>
 @section scripts{
-    @*<script>
-            $(".aElimina").click(function (event) {
-                if (!confirm('Desea eliminar el registro?')) {
-                    event.preventDefault();
-                }
-            });
-    </script>*@
+    <script>
+        $(".aElimina").click(function (event) {
+            if (!confirm('Está seguro de eliminar la solicitud?')) {
+                event.preventDefault();
+            }
+        });
+    </script>
 }
-
-

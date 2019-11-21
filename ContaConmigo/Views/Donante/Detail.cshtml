@@ -1,60 +1,33 @@
-﻿@model ContaConmigo.Model.Donor
+﻿@*@model ContaConmigo.Model.Donor*@
+@model IEnumerable<ContaConmigo.ViewModel.CityViewModel>
 
 <div>
-    <h4>Donor</h4>
+    <h4>Detalle Donante</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NombreCompletoDon)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NombreCompletoDon)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProvinceId)
-        </dt>
+                <td>Nombre Completo</td>
+                <td>Provincia</td>
+                <td>Ciudad</td>
+                <td>Grupo/Factor Sanguíneo</td>
+                <td>Ultima Fecha Donación</td>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProvinceDescription)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CityId)
-        </dt>
+            @foreach (var item in Model)
+            {
 
-        <dd>
-            @Html.DisplayFor(model => model.CityName)
-        </dd>
+                <td>@item.DonorsVM.NombreCompletoDon</td>
+                <td>@item.ProvincesVM.ProvinceDescription</td>
+                <td>@item.CitiesVM.CityName</td>
+                <td>@item.GroupFactorBloodVM.GroupFactorDescription</td>
+                <td>@item.DonorsVM.Last_Date_Blood_Extract</td>
+                @Html.ActionLink("Editar", "EditarDonante", new { @class = "btn btn-primary", id = item.DonorsVM.DonorId })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Last_Date_Blood_Extract)
-        </dt>
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Last_Date_Blood_Extract)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BloodGroupFactorId)
-            
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GroupFactorBlood.GroupFactorDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "EditarDonante", new {@class="btn btn-primary", id = Model.DonorId }) |
     @Html.ActionLink("Volver al listado", "ListadoDonantes")
 </p>
