@@ -11,7 +11,8 @@ namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class GroupFactorBlood
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,8 @@ namespace ContaConmigo.Model
         }
     
         public int GroupFactorBloodId { get; set; }
+        [Required]
+        [Display(Name = "Grupo/Factor Sanguíneo")]
         public string GroupFactorDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

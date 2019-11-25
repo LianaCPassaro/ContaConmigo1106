@@ -11,7 +11,8 @@ namespace ContaConmigo.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class City
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,8 @@ namespace ContaConmigo.Model
         }
     
         public int Id { get; set; }
+        [Required]
+        [Display(Name = "Ciudad")]
         public string CityName { get; set; }
         public int ZipCode { get; set; }
         public int ProvinceId { get; set; }

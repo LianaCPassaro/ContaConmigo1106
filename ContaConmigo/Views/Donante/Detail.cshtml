@@ -1,33 +1,54 @@
-﻿@*@model ContaConmigo.Model.Donor*@
+﻿
 @model IEnumerable<ContaConmigo.ViewModel.CityViewModel>
 
+@{
+    ViewBag.Title = "Detalle Donante";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Información Donante</h2>
+
 <div>
-    <h4>Detalle Donante</h4>
+
     <hr />
     <dl class="dl-horizontal">
-
-
-                <td>Nombre Completo</td>
-                <td>Provincia</td>
-                <td>Ciudad</td>
-                <td>Grupo/Factor Sanguíneo</td>
-                <td>Ultima Fecha Donación</td>
-
-
-            @foreach (var item in Model)
-            {
-
-                <td>@item.DonorsVM.NombreCompletoDon</td>
-                <td>@item.ProvincesVM.ProvinceDescription</td>
-                <td>@item.CitiesVM.CityName</td>
-                <td>@item.GroupFactorBloodVM.GroupFactorDescription</td>
-                <td>@item.DonorsVM.Last_Date_Blood_Extract</td>
-                @Html.ActionLink("Editar", "EditarDonante", new { @class = "btn btn-primary", id = item.DonorsVM.DonorId })
-
-            }
-
+        <dt>
+            @Html.DisplayNameFor(model => model.DonorsVM.NombreCompletoDon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.First().DonorsVM.NombreCompletoDon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProvincesVM.ProvinceDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.First().ProvincesVM.ProvinceDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CitiesVM.CityName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.First().CitiesVM.CityName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupFactorBloodVM.GroupFactorDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.First().GroupFactorBloodVM.GroupFactorDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DonorsVM.Last_Date_Blood_Extract)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.First().DonorsVM.Last_Date_Blood_Extract)
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Volver al listado", "ListadoDonantes")
+    <div class="row" align="right">
+        <div class="col-md-12">
+            @Html.ActionLink("Editar", "EditarDonante", new { id = Model.First().DonorsVM.DonorId})
+            @Html.ActionLink("Volver", "ListadoDonantes")
+        </div>
+    </div>
 </p>

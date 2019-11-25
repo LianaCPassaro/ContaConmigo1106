@@ -127,7 +127,7 @@ namespace ContaConmigo.Controllers
             int pcia = db.Cities.Find(donor.CityId).ProvinceId;
             Province province = db.Provinces.Find(pcia);
             donor.ProvinceId = province.ProvinceId;
-
+            ViewBag.CityDetail = db.Cities.Find(donor.CityId);
             //PopulateCityDropDownList(pcia, donor.CityId);
 
 
